@@ -10,6 +10,17 @@ flex:1;
   overflow: hidden;
  
 }
+.register-container {
+height: 100%;
+width: 100%;
+flex:1;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+ 
+}
 
 /* Background image + blur */
 .background-blur {
@@ -95,6 +106,21 @@ input:focus {
 .btn-signin:hover {
   background: #e26510;
 }
+.btn-signup {
+  background: #10b981; 
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.btn-signup:hover {
+  background: #0f9b76;
+}
+
 
 .btn-create {
   background: white;
