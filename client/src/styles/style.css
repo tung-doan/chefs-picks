@@ -159,11 +159,15 @@ input:focus {
   letter-spacing: 0.04em;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .home-nav-links {
   display: flex;
   gap: 18px;
-  flex: 1;
-  justify-content: center;
 }
 
 .home-nav-links a {
@@ -363,8 +367,13 @@ input:focus {
     flex-direction: column;
   }
 
+  .header-actions {
+    flex-direction: column;
+  }
+
   .home-nav-links {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .home-content {

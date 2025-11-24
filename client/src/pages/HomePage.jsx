@@ -41,18 +41,20 @@ const HomePage = () => {
           </div>
         </div>
 
-        <nav className="home-nav-links">
-          <a className="active" href="#">
-            Home
-          </a>
-          <a href="#">Today&apos;s Picks</a>
-          <a href="#">Surprise Me</a>
-          <a href="#">Nearby</a>
-          <a href="#">History</a>
-          <a href="#">Favorites</a>
-        </nav>
+        <div className="header-actions">
+          <nav className="home-nav-links">
+            <a className="active" href="#">
+              Home
+            </a>
+            <a href="#">Today&apos;s Picks</a>
+            <a href="#">Surprise Me</a>
+            <a href="#">Nearby</a>
+            <a href="#">History</a>
+            <a href="#">Favorites</a>
+          </nav>
 
-        <button className="login-btn">Login</button>
+          <button className="login-btn">Login</button>
+        </div>
       </header>
 
       <main className="home-content">
