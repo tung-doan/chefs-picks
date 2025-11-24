@@ -1,0 +1,124 @@
+/* Fullscreen container */
+.login-container {
+height: 100%;
+width: 100%;
+flex:1;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+ 
+}
+
+/* Background image + blur */
+.background-blur {
+    
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/food.jpg"); 
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) brightness(70%);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* White login card */
+.login-box {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+  width: 90%;
+  background: white;
+  margin: auto;
+  margin-top: 60px;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.login-box h2 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #f97316;
+}
+
+/* Checkbox line */
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+/* Button row */
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-signin {
+  background: #f97316;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-signin:hover {
+  background: #e26510;
+}
+
+.btn-create {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-create:hover {
+  background: #f5f5f5;
+}
+
+/* Forgot Password */
+.forgot {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.forgot a {
+  color: #f97316;
+  text-decoration: none;
+}
+
+.forgot a:hover {
+  text-decoration: underline;
+}
