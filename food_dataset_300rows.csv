@@ -1,0 +1,301 @@
+id,restaurant,area,dish,category,price
+1,Restaurant_16,Huế,Dish_53,Chinese,81330
+2,Restaurant_12,Hà Nội,Dish_75,Vietnamese,153036
+3,Restaurant_14,Đà Nẵng,Dish_57,Japanese,138235
+4,Restaurant_47,Hà Nội,Dish_30,Italian,170206
+5,Restaurant_27,Hồ Chí Minh,Dish_15,Japanese,147002
+6,Restaurant_32,Cần Thơ,Dish_61,Thai,133683
+7,Restaurant_35,Huế,Dish_35,Thai,159736
+8,Restaurant_16,Cần Thơ,Dish_1,Chinese,36016
+9,Restaurant_35,Hồ Chí Minh,Dish_56,Japanese,112224
+10,Restaurant_49,Cần Thơ,Dish_56,Japanese,134711
+11,Restaurant_8,Hà Nội,Dish_90,Fast Food,158854
+12,Restaurant_43,Hà Nội,Dish_78,Italian,32683
+13,Restaurant_23,Hà Nội,Dish_11,Chinese,195579
+14,Restaurant_37,Đà Nẵng,Dish_38,Fast Food,178051
+15,Restaurant_6,Hồ Chí Minh,Dish_57,Chinese,152874
+16,Restaurant_48,Hồ Chí Minh,Dish_42,Fast Food,112133
+17,Restaurant_20,Hồ Chí Minh,Dish_32,Japanese,73961
+18,Restaurant_16,Cần Thơ,Dish_90,Korean,71684
+19,Restaurant_41,Cần Thơ,Dish_93,Korean,100218
+20,Restaurant_17,Hồ Chí Minh,Dish_47,Vietnamese,122675
+21,Restaurant_9,Đà Nẵng,Dish_74,Vietnamese,94067
+22,Restaurant_9,Đà Nẵng,Dish_17,Japanese,91781
+23,Restaurant_1,Hồ Chí Minh,Dish_94,Korean,54523
+24,Restaurant_32,Đà Nẵng,Dish_36,Thai,153079
+25,Restaurant_32,Hồ Chí Minh,Dish_32,Korean,174144
+26,Restaurant_7,Hồ Chí Minh,Dish_44,Japanese,132608
+27,Restaurant_1,Hà Nội,Dish_50,Fast Food,53108
+28,Restaurant_17,Huế,Dish_78,Italian,36112
+29,Restaurant_44,Hà Nội,Dish_31,Italian,45433
+30,Restaurant_10,Hồ Chí Minh,Dish_13,Japanese,53052
+31,Restaurant_23,Hà Nội,Dish_95,Fast Food,137538
+32,Restaurant_1,Hồ Chí Minh,Dish_50,Italian,120257
+33,Restaurant_42,Huế,Dish_69,Vietnamese,105401
+34,Restaurant_34,Cần Thơ,Dish_92,Vietnamese,155853
+35,Restaurant_18,Đà Nẵng,Dish_92,Chinese,140120
+36,Restaurant_28,Cần Thơ,Dish_31,Chinese,143325
+37,Restaurant_9,Cần Thơ,Dish_14,Japanese,49687
+38,Restaurant_4,Hồ Chí Minh,Dish_97,Japanese,181868
+39,Restaurant_12,Cần Thơ,Dish_2,Vietnamese,192432
+40,Restaurant_35,Cần Thơ,Dish_80,Fast Food,140096
+41,Restaurant_9,Đà Nẵng,Dish_93,Fast Food,144885
+42,Restaurant_16,Hà Nội,Dish_52,Italian,183373
+43,Restaurant_5,Hà Nội,Dish_8,Italian,185707
+44,Restaurant_36,Hồ Chí Minh,Dish_71,Thai,185621
+45,Restaurant_15,Hồ Chí Minh,Dish_3,Italian,44413
+46,Restaurant_22,Đà Nẵng,Dish_72,Chinese,142405
+47,Restaurant_48,Hà Nội,Dish_69,Fast Food,44960
+48,Restaurant_27,Cần Thơ,Dish_27,Fast Food,88676
+49,Restaurant_34,Đà Nẵng,Dish_5,Korean,106886
+50,Restaurant_34,Cần Thơ,Dish_72,Chinese,181460
+51,Restaurant_23,Đà Nẵng,Dish_58,Vietnamese,186811
+52,Restaurant_6,Huế,Dish_10,Japanese,31413
+53,Restaurant_42,Cần Thơ,Dish_83,Thai,174094
+54,Restaurant_36,Cần Thơ,Dish_90,Fast Food,113152
+55,Restaurant_2,Hồ Chí Minh,Dish_59,Fast Food,33840
+56,Restaurant_46,Cần Thơ,Dish_26,Italian,149135
+57,Restaurant_43,Cần Thơ,Dish_28,Italian,106889
+58,Restaurant_42,Cần Thơ,Dish_99,Thai,31753
+59,Restaurant_21,Cần Thơ,Dish_32,Fast Food,164025
+60,Restaurant_19,Đà Nẵng,Dish_49,Chinese,163823
+61,Restaurant_4,Hà Nội,Dish_23,Italian,46562
+62,Restaurant_37,Huế,Dish_42,Thai,100507
+63,Restaurant_12,Cần Thơ,Dish_87,Thai,102233
+64,Restaurant_45,Cần Thơ,Dish_66,Vietnamese,111613
+65,Restaurant_26,Đà Nẵng,Dish_37,Fast Food,104730
+66,Restaurant_24,Hà Nội,Dish_55,Korean,167012
+67,Restaurant_11,Hà Nội,Dish_22,Thai,147229
+68,Restaurant_47,Hà Nội,Dish_85,Italian,73016
+69,Restaurant_45,Hà Nội,Dish_1,Japanese,106818
+70,Restaurant_37,Cần Thơ,Dish_89,Korean,170200
+71,Restaurant_26,Huế,Dish_64,Thai,75497
+72,Restaurant_41,Cần Thơ,Dish_23,Thai,80788
+73,Restaurant_25,Cần Thơ,Dish_47,Fast Food,87699
+74,Restaurant_35,Hà Nội,Dish_21,Italian,82451
+75,Restaurant_7,Huế,Dish_33,Italian,119369
+76,Restaurant_44,Đà Nẵng,Dish_98,Japanese,159108
+77,Restaurant_15,Đà Nẵng,Dish_29,Korean,199860
+78,Restaurant_37,Đà Nẵng,Dish_10,Korean,71811
+79,Restaurant_36,Hồ Chí Minh,Dish_94,Fast Food,192848
+80,Restaurant_46,Hà Nội,Dish_67,Japanese,125533
+81,Restaurant_16,Đà Nẵng,Dish_2,Korean,135506
+82,Restaurant_18,Huế,Dish_13,Fast Food,105532
+83,Restaurant_1,Hà Nội,Dish_30,Korean,145894
+84,Restaurant_4,Đà Nẵng,Dish_94,Korean,133729
+85,Restaurant_37,Hà Nội,Dish_64,Italian,92660
+86,Restaurant_32,Hà Nội,Dish_36,Thai,199469
+87,Restaurant_7,Hồ Chí Minh,Dish_38,Italian,198413
+88,Restaurant_16,Đà Nẵng,Dish_48,Japanese,173472
+89,Restaurant_1,Hà Nội,Dish_56,Vietnamese,168191
+90,Restaurant_10,Hà Nội,Dish_6,Chinese,91376
+91,Restaurant_25,Cần Thơ,Dish_10,Korean,194857
+92,Restaurant_2,Hồ Chí Minh,Dish_57,Vietnamese,46181
+93,Restaurant_47,Hà Nội,Dish_30,Thai,141951
+94,Restaurant_9,Hà Nội,Dish_32,Thai,72041
+95,Restaurant_40,Hồ Chí Minh,Dish_91,Vietnamese,70216
+96,Restaurant_42,Cần Thơ,Dish_75,Thai,33032
+97,Restaurant_40,Hồ Chí Minh,Dish_84,Vietnamese,127113
+98,Restaurant_8,Huế,Dish_25,Vietnamese,173856
+99,Restaurant_24,Hà Nội,Dish_23,Italian,93247
+100,Restaurant_11,Hà Nội,Dish_30,Thai,92412
+101,Restaurant_17,Hồ Chí Minh,Dish_56,Italian,90474
+102,Restaurant_42,Hồ Chí Minh,Dish_47,Korean,80185
+103,Restaurant_12,Hà Nội,Dish_24,Fast Food,55880
+104,Restaurant_16,Hồ Chí Minh,Dish_96,Korean,113088
+105,Restaurant_17,Hà Nội,Dish_48,Japanese,187552
+106,Restaurant_30,Cần Thơ,Dish_51,Korean,76947
+107,Restaurant_13,Huế,Dish_3,Chinese,106120
+108,Restaurant_21,Huế,Dish_85,Thai,100809
+109,Restaurant_11,Đà Nẵng,Dish_18,Chinese,32383
+110,Restaurant_17,Hồ Chí Minh,Dish_20,Italian,198474
+111,Restaurant_38,Hồ Chí Minh,Dish_87,Fast Food,48100
+112,Restaurant_31,Cần Thơ,Dish_59,Korean,74111
+113,Restaurant_46,Hồ Chí Minh,Dish_50,Chinese,190199
+114,Restaurant_18,Hà Nội,Dish_8,Italian,121025
+115,Restaurant_3,Cần Thơ,Dish_95,Fast Food,34593
+116,Restaurant_13,Hà Nội,Dish_20,Italian,185561
+117,Restaurant_17,Hà Nội,Dish_34,Thai,132389
+118,Restaurant_17,Hà Nội,Dish_34,Fast Food,58353
+119,Restaurant_23,Hồ Chí Minh,Dish_22,Thai,102699
+120,Restaurant_4,Đà Nẵng,Dish_57,Chinese,122203
+121,Restaurant_26,Huế,Dish_94,Vietnamese,50437
+122,Restaurant_48,Đà Nẵng,Dish_89,Fast Food,48906
+123,Restaurant_31,Cần Thơ,Dish_35,Korean,157806
+124,Restaurant_14,Hồ Chí Minh,Dish_84,Thai,63272
+125,Restaurant_40,Hồ Chí Minh,Dish_74,Chinese,37034
+126,Restaurant_15,Đà Nẵng,Dish_43,Fast Food,174563
+127,Restaurant_13,Cần Thơ,Dish_73,Japanese,156464
+128,Restaurant_4,Đà Nẵng,Dish_23,Thai,157526
+129,Restaurant_14,Huế,Dish_10,Fast Food,115417
+130,Restaurant_10,Hà Nội,Dish_49,Italian,173225
+131,Restaurant_43,Huế,Dish_21,Thai,181469
+132,Restaurant_4,Huế,Dish_53,Korean,70186
+133,Restaurant_47,Cần Thơ,Dish_18,Fast Food,30774
+134,Restaurant_16,Hồ Chí Minh,Dish_23,Fast Food,46138
+135,Restaurant_16,Đà Nẵng,Dish_51,Japanese,177607
+136,Restaurant_1,Cần Thơ,Dish_36,Fast Food,62212
+137,Restaurant_28,Đà Nẵng,Dish_98,Korean,166142
+138,Restaurant_48,Hồ Chí Minh,Dish_50,Korean,112868
+139,Restaurant_19,Huế,Dish_71,Korean,198315
+140,Restaurant_17,Đà Nẵng,Dish_27,Italian,188107
+141,Restaurant_43,Huế,Dish_90,Japanese,121267
+142,Restaurant_21,Đà Nẵng,Dish_6,Japanese,108439
+143,Restaurant_17,Hồ Chí Minh,Dish_55,Chinese,121011
+144,Restaurant_44,Huế,Dish_86,Chinese,56240
+145,Restaurant_43,Cần Thơ,Dish_11,Korean,109529
+146,Restaurant_24,Đà Nẵng,Dish_20,Korean,162784
+147,Restaurant_10,Huế,Dish_25,Japanese,109536
+148,Restaurant_4,Hà Nội,Dish_17,Vietnamese,134315
+149,Restaurant_11,Huế,Dish_15,Korean,96902
+150,Restaurant_19,Hồ Chí Minh,Dish_80,Korean,98739
+151,Restaurant_2,Cần Thơ,Dish_89,Vietnamese,155769
+152,Restaurant_13,Hồ Chí Minh,Dish_91,Italian,31007
+153,Restaurant_41,Hà Nội,Dish_83,Vietnamese,160153
+154,Restaurant_41,Hồ Chí Minh,Dish_50,Fast Food,127296
+155,Restaurant_18,Huế,Dish_79,Thai,102653
+156,Restaurant_4,Hồ Chí Minh,Dish_75,Japanese,158171
+157,Restaurant_31,Hà Nội,Dish_16,Vietnamese,145491
+158,Restaurant_17,Hà Nội,Dish_73,Chinese,75717
+159,Restaurant_43,Hà Nội,Dish_51,Italian,70398
+160,Restaurant_35,Cần Thơ,Dish_41,Fast Food,69924
+161,Restaurant_4,Huế,Dish_94,Italian,193414
+162,Restaurant_45,Cần Thơ,Dish_79,Japanese,87489
+163,Restaurant_38,Hồ Chí Minh,Dish_55,Korean,162294
+164,Restaurant_34,Hồ Chí Minh,Dish_75,Vietnamese,159293
+165,Restaurant_19,Cần Thơ,Dish_93,Italian,47789
+166,Restaurant_20,Huế,Dish_67,Korean,103360
+167,Restaurant_11,Huế,Dish_40,Vietnamese,137349
+168,Restaurant_17,Huế,Dish_16,Korean,108183
+169,Restaurant_44,Hồ Chí Minh,Dish_75,Italian,159378
+170,Restaurant_48,Hồ Chí Minh,Dish_5,Chinese,62123
+171,Restaurant_2,Huế,Dish_6,Korean,58946
+172,Restaurant_14,Cần Thơ,Dish_5,Fast Food,69423
+173,Restaurant_1,Đà Nẵng,Dish_7,Italian,181161
+174,Restaurant_29,Hồ Chí Minh,Dish_27,Korean,60287
+175,Restaurant_33,Cần Thơ,Dish_60,Korean,86570
+176,Restaurant_46,Cần Thơ,Dish_34,Italian,155175
+177,Restaurant_11,Huế,Dish_25,Fast Food,53603
+178,Restaurant_23,Hà Nội,Dish_85,Japanese,122758
+179,Restaurant_30,Huế,Dish_76,Japanese,114162
+180,Restaurant_1,Hồ Chí Minh,Dish_54,Chinese,137508
+181,Restaurant_13,Huế,Dish_61,Thai,135753
+182,Restaurant_11,Huế,Dish_77,Chinese,191318
+183,Restaurant_25,Huế,Dish_80,Chinese,105748
+184,Restaurant_33,Hà Nội,Dish_94,Chinese,189919
+185,Restaurant_25,Cần Thơ,Dish_94,Vietnamese,49411
+186,Restaurant_48,Cần Thơ,Dish_45,Korean,107578
+187,Restaurant_2,Đà Nẵng,Dish_79,Japanese,164937
+188,Restaurant_5,Đà Nẵng,Dish_67,Chinese,35433
+189,Restaurant_48,Đà Nẵng,Dish_31,Chinese,110105
+190,Restaurant_25,Hồ Chí Minh,Dish_11,Vietnamese,187801
+191,Restaurant_36,Huế,Dish_85,Chinese,110780
+192,Restaurant_41,Hồ Chí Minh,Dish_45,Italian,186244
+193,Restaurant_4,Huế,Dish_79,Fast Food,128946
+194,Restaurant_48,Cần Thơ,Dish_81,Japanese,156417
+195,Restaurant_6,Đà Nẵng,Dish_70,Fast Food,89372
+196,Restaurant_10,Cần Thơ,Dish_85,Fast Food,94655
+197,Restaurant_30,Hồ Chí Minh,Dish_42,Japanese,136609
+198,Restaurant_14,Huế,Dish_81,Fast Food,173153
+199,Restaurant_31,Huế,Dish_43,Italian,69638
+200,Restaurant_10,Huế,Dish_88,Thai,158506
+201,Restaurant_12,Hồ Chí Minh,Dish_22,Chinese,32742
+202,Restaurant_16,Huế,Dish_39,Japanese,37830
+203,Restaurant_23,Hồ Chí Minh,Dish_61,Thai,34346
+204,Restaurant_26,Đà Nẵng,Dish_97,Chinese,96192
+205,Restaurant_39,Huế,Dish_52,Vietnamese,34115
+206,Restaurant_47,Hồ Chí Minh,Dish_99,Korean,63556
+207,Restaurant_17,Cần Thơ,Dish_77,Italian,56969
+208,Restaurant_13,Hồ Chí Minh,Dish_30,Italian,54873
+209,Restaurant_47,Hà Nội,Dish_60,Korean,193952
+210,Restaurant_6,Huế,Dish_56,Fast Food,164723
+211,Restaurant_27,Huế,Dish_89,Japanese,55528
+212,Restaurant_26,Hồ Chí Minh,Dish_14,Thai,128629
+213,Restaurant_26,Huế,Dish_85,Japanese,155726
+214,Restaurant_4,Cần Thơ,Dish_82,Chinese,52460
+215,Restaurant_5,Hồ Chí Minh,Dish_80,Vietnamese,123356
+216,Restaurant_4,Hà Nội,Dish_66,Vietnamese,31789
+217,Restaurant_36,Hà Nội,Dish_2,Italian,169689
+218,Restaurant_20,Huế,Dish_10,Japanese,133655
+219,Restaurant_50,Hà Nội,Dish_3,Chinese,74127
+220,Restaurant_30,Hà Nội,Dish_14,Italian,104802
+221,Restaurant_29,Cần Thơ,Dish_86,Korean,147310
+222,Restaurant_34,Hà Nội,Dish_42,Korean,194091
+223,Restaurant_7,Cần Thơ,Dish_1,Fast Food,60582
+224,Restaurant_45,Đà Nẵng,Dish_31,Vietnamese,132494
+225,Restaurant_24,Hồ Chí Minh,Dish_89,Thai,155984
+226,Restaurant_46,Hà Nội,Dish_63,Japanese,79281
+227,Restaurant_42,Cần Thơ,Dish_77,Vietnamese,71531
+228,Restaurant_43,Đà Nẵng,Dish_49,Vietnamese,181384
+229,Restaurant_35,Đà Nẵng,Dish_78,Italian,90403
+230,Restaurant_38,Hà Nội,Dish_18,Fast Food,51506
+231,Restaurant_12,Hồ Chí Minh,Dish_36,Japanese,108296
+232,Restaurant_18,Hà Nội,Dish_8,Italian,134170
+233,Restaurant_46,Hồ Chí Minh,Dish_27,Italian,184155
+234,Restaurant_11,Đà Nẵng,Dish_56,Korean,183978
+235,Restaurant_35,Hà Nội,Dish_39,Italian,124965
+236,Restaurant_26,Hồ Chí Minh,Dish_26,Italian,152343
+237,Restaurant_3,Huế,Dish_41,Japanese,114032
+238,Restaurant_22,Hồ Chí Minh,Dish_82,Fast Food,146414
+239,Restaurant_21,Hồ Chí Minh,Dish_44,Japanese,84441
+240,Restaurant_16,Hà Nội,Dish_88,Korean,161095
+241,Restaurant_28,Cần Thơ,Dish_10,Japanese,195795
+242,Restaurant_36,Huế,Dish_49,Japanese,113477
+243,Restaurant_5,Cần Thơ,Dish_92,Korean,97026
+244,Restaurant_29,Huế,Dish_59,Vietnamese,36039
+245,Restaurant_13,Đà Nẵng,Dish_2,Fast Food,189652
+246,Restaurant_19,Hồ Chí Minh,Dish_56,Thai,74951
+247,Restaurant_6,Huế,Dish_16,Vietnamese,110277
+248,Restaurant_20,Đà Nẵng,Dish_11,Chinese,177923
+249,Restaurant_48,Cần Thơ,Dish_55,Fast Food,181501
+250,Restaurant_3,Cần Thơ,Dish_31,Chinese,138170
+251,Restaurant_26,Đà Nẵng,Dish_75,Fast Food,102631
+252,Restaurant_26,Hà Nội,Dish_72,Italian,85817
+253,Restaurant_18,Đà Nẵng,Dish_39,Vietnamese,74369
+254,Restaurant_15,Hà Nội,Dish_26,Japanese,143150
+255,Restaurant_10,Cần Thơ,Dish_9,Vietnamese,102863
+256,Restaurant_1,Đà Nẵng,Dish_90,Fast Food,196600
+257,Restaurant_17,Đà Nẵng,Dish_88,Fast Food,134401
+258,Restaurant_50,Hồ Chí Minh,Dish_68,Thai,32037
+259,Restaurant_14,Hồ Chí Minh,Dish_49,Chinese,196511
+260,Restaurant_6,Hồ Chí Minh,Dish_11,Fast Food,54176
+261,Restaurant_46,Hà Nội,Dish_37,Vietnamese,167438
+262,Restaurant_26,Hà Nội,Dish_17,Japanese,53148
+263,Restaurant_2,Đà Nẵng,Dish_6,Vietnamese,99814
+264,Restaurant_13,Huế,Dish_46,Japanese,147147
+265,Restaurant_38,Hồ Chí Minh,Dish_62,Italian,35691
+266,Restaurant_28,Cần Thơ,Dish_13,Korean,86421
+267,Restaurant_20,Huế,Dish_17,Vietnamese,163597
+268,Restaurant_34,Cần Thơ,Dish_3,Fast Food,181650
+269,Restaurant_43,Hà Nội,Dish_100,Vietnamese,178220
+270,Restaurant_44,Cần Thơ,Dish_9,Vietnamese,168004
+271,Restaurant_38,Huế,Dish_40,Japanese,179933
+272,Restaurant_44,Hồ Chí Minh,Dish_45,Japanese,173072
+273,Restaurant_20,Hà Nội,Dish_95,Japanese,175993
+274,Restaurant_31,Đà Nẵng,Dish_15,Korean,35000
+275,Restaurant_27,Huế,Dish_6,Thai,148803
+276,Restaurant_8,Hà Nội,Dish_7,Chinese,67825
+277,Restaurant_29,Hồ Chí Minh,Dish_56,Thai,140348
+278,Restaurant_16,Đà Nẵng,Dish_74,Japanese,55077
+279,Restaurant_10,Hà Nội,Dish_58,Fast Food,86225
+280,Restaurant_32,Hà Nội,Dish_1,Korean,86594
+281,Restaurant_12,Hồ Chí Minh,Dish_23,Italian,129301
+282,Restaurant_44,Huế,Dish_22,Thai,145990
+283,Restaurant_39,Hà Nội,Dish_59,Vietnamese,166346
+284,Restaurant_24,Hồ Chí Minh,Dish_66,Italian,117026
+285,Restaurant_44,Cần Thơ,Dish_87,Fast Food,58839
+286,Restaurant_50,Hồ Chí Minh,Dish_3,Vietnamese,121208
+287,Restaurant_11,Đà Nẵng,Dish_4,Korean,66859
+288,Restaurant_13,Hà Nội,Dish_3,Thai,57774
+289,Restaurant_48,Đà Nẵng,Dish_57,Italian,65643
+290,Restaurant_49,Hà Nội,Dish_77,Fast Food,92258
+291,Restaurant_19,Cần Thơ,Dish_67,Fast Food,144974
+292,Restaurant_47,Hồ Chí Minh,Dish_32,Chinese,42894
+293,Restaurant_32,Huế,Dish_24,Chinese,130728
+294,Restaurant_42,Đà Nẵng,Dish_13,Thai,95874
+295,Restaurant_50,Cần Thơ,Dish_12,Italian,170130
+296,Restaurant_28,Hồ Chí Minh,Dish_14,Japanese,112738
+297,Restaurant_22,Cần Thơ,Dish_20,Korean,53410
+298,Restaurant_8,Cần Thơ,Dish_46,Thai,134870
+299,Restaurant_47,Huế,Dish_12,Chinese,142339
+300,Restaurant_4,Huế,Dish_18,Thai,66441
