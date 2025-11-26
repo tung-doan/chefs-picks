@@ -108,7 +108,7 @@ input:focus {
   background: #e26510;
 }
 .btn-signup {
-  background: #10b981; 
+  background: #f97316; 
   border: none;
   padding: 10px 20px;
   color: white;
@@ -119,7 +119,7 @@ input:focus {
 }
 
 .btn-signup:hover {
-  background: #0f9b76;
+  background:  #e26510;
 }
 
 
