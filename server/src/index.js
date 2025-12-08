@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { connectDB } = require("./config/db-config");
 const authRoutes = require("./routes/auth-routes");
+const favoriteRoutes = require("./routes/favorite-routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/auth", authRoutes);
+app.use("/api/favorites", favoriteRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello! Server is running.");
