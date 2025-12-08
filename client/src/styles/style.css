@@ -208,9 +208,9 @@ input:focus {
 }
 
 .login-btn {
-  background: transparent;
-  border: 1px solid #d9dce4;
-  color: #111928;
+  background: #f97316;
+  border: none;
+  color: #fff;
   padding: 10px 22px;
   border-radius: 10px;
   font-weight: 600;
@@ -336,8 +336,9 @@ input:focus {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .highlight-item {
@@ -348,6 +349,7 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .highlight-info {
