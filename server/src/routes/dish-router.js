@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Dish = require("../models/Dish");
+const Restaurant = require("../models/Restaurant");
+const Category = require("../models/Category");
 
 const router = express.Router();
 
@@ -165,6 +167,7 @@ router.get("/:id", async (req, res) => {
 
     res.json(dish);
   } catch (err) {
+    console.error("Error fetching dish:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });

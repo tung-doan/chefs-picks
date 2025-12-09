@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Heart, Home, Loader2, AlertCircle } from 'lucide-react';
-
-// API Base URL - Thay đổi theo backend của bạn
-const API_BASE_URL = 'http://localhost:5000/api';
+import { API_BASE_URL } from '../config/api-config';
 
 function Menu() {
   const [menuItems, setMenuItems] = useState([]);
@@ -237,7 +236,11 @@ function Menu() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {menuItems.map(item => (
-                <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <Link
+                  to={`/menu/${item._id}`}
+                  key={item._id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
+                >
                   <div className="relative h-48 bg-gray-200">
                     <img 
                       src={item.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'} 
@@ -260,8 +263,13 @@ function Menu() {
                         )}
                       </div>
                       <button
-                        onClick={() => toggleFavorite(item._id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleFavorite(item._id);
+                        }}
                         className="p-1 hover:bg-gray-100 rounded"
+                        aria-label="お気に入りに追加"
                       >
                         <Heart
                           size={20}
@@ -293,7 +301,7 @@ function Menu() {
                       </div>
                     )}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             
