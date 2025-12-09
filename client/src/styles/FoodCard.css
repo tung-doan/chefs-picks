@@ -1,0 +1,28 @@
+.food-card {
+  width: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.food-card:hover {
+  transform: translateY(-3px);
+}
+
+.food-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.food-info {
+  padding: 10px;
+  text-align: left;
+}
+
+.price {
+  font-weight: bold;
+  color: #e67e22;
+}
