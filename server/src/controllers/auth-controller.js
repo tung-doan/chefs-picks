@@ -22,7 +22,7 @@ const register = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "Du lieu khong hop le",
+      message: "データが無効です",
       errors: errors.array().map((err) => err.msg),
     });
   }
@@ -34,7 +34,7 @@ const register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "Email da duoc dang ky",
+        message: "メールアドレスは既に登録されています",
       });
     }
 
@@ -55,7 +55,7 @@ const register = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: "Dang ky thanh cong",
+      message: "登録が成功しました",
       data: {
         user: {
           id: user._id,
@@ -71,7 +71,7 @@ const register = async (req, res) => {
     console.error("Register error:", error);
     return res.status(500).json({
       success: false,
-      message: "Loi may chu",
+      message: "サーバーエラー",
     });
   }
 };
@@ -82,7 +82,7 @@ const login = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "Du lieu khong hop le",
+      message: "データが無効です",
       errors: errors.array().map((err) => err.msg),
     });
   }
@@ -94,7 +94,7 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "Tai khoan khong ton tai",
+        message: "アカウントが存在しません",
       });
     }
 
@@ -102,7 +102,7 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: "Email hoac mat khau khong dung",
+        message: "メールアドレスまたはパスワードが正しくありません",
       });
     }
 
@@ -117,7 +117,7 @@ const login = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Dang nhap thanh cong",
+      message: "ログインが成功しました",
       data: {
         user: {
           id: user._id,
@@ -132,7 +132,7 @@ const login = async (req, res) => {
     console.error("Login error:", error);
     return res.status(500).json({
       success: false,
-      message: "Loi may chu",
+      message: "サーバーエラー",
     });
   }
 };
@@ -143,7 +143,7 @@ const forgotPassword = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "Du lieu khong hop le",
+      message: "データが無効です",
       errors: errors.array().map((err) => err.msg),
     });
   }
@@ -155,7 +155,7 @@ const forgotPassword = async (req, res) => {
     if (!user) {
       return res.status(200).json({
         success: true,
-        message: "Neu email ton tai, chung toi da gui huong dan",
+        message: "メールアドレスが存在する場合、リセットコードを送信しました",
       });
     }
 
@@ -185,13 +185,13 @@ const forgotPassword = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Ma reset da duoc gui qua email (neu email ton tai)",
+      message: "リセットコードをメールで送信しました（メールアドレスが存在する場合）",
     });
   } catch (error) {
     console.error("Forgot password error:", error);
     return res.status(500).json({
       success: false,
-      message: "Khong the gui email dat lai mat khau",
+      message: "パスワードリセットメールを送信できませんでした",
     });
   }
 };
@@ -202,7 +202,7 @@ const resetPassword = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "Du lieu khong hop le",
+      message: "データが無効です",
       errors: errors.array().map((err) => err.msg),
     });
   }
@@ -221,7 +221,7 @@ const resetPassword = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Ma khong hop le hoac da het han",
+        message: "コードが無効または期限切れです",
       });
     }
 
@@ -233,13 +233,13 @@ const resetPassword = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Dat lai mat khau thanh cong",
+      message: "パスワードリセットが成功しました",
     });
   } catch (error) {
     console.error("Reset password error:", error);
     return res.status(500).json({
       success: false,
-      message: "Khong the dat lai mat khau",
+      message: "パスワードをリセットできませんでした",
     });
   }
 };
@@ -249,7 +249,7 @@ const logout = (req, res) => {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,
-      message: "Vui long dang nhap",
+      message: "ログインしてください",
     });
   }
 
@@ -260,12 +260,12 @@ const logout = (req, res) => {
     jwt.verify(token, secret);
     return res.status(200).json({
       success: true,
-      message: "Dang xuat thanh cong",
+      message: "ログアウトが成功しました",
     });
   } catch (error) {
     return res.status(401).json({
       success: false,
-      message: "Vui long dang nhap",
+      message: "ログインしてください",
     });
   }
 };

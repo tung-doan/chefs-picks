@@ -11,32 +11,32 @@ const {
 const router = express.Router();
 
 const registerValidation = [
-  body("name").trim().notEmpty().withMessage("Name là b?t bu?c"),
-  body("email").isEmail().withMessage("Email không đúng đ?nh d?ng"),
+  body("name").trim().notEmpty().withMessage("名前は必須です"),
+  body("email").isEmail().withMessage("メールアドレスの形式が正しくありません"),
   body("password")
     .isLength({ min: 6 })
-    .withMessage("Password ph?i có ít nh?t 6 k? t?"),
+    .withMessage("パスワードは6文字以上である必要があります"),
   body("role")
     .optional()
     .isIn(["user", "admin"])
-    .withMessage("Role không h?p l?"),
+    .withMessage("ロールが無効です"),
 ];
 
 const loginValidation = [
-  body("email").isEmail().withMessage("Email không đúng đ?nh d?ng"),
-  body("password").notEmpty().withMessage("Password là b?t bu?c"),
+  body("email").isEmail().withMessage("メールアドレスの形式が正しくありません"),
+  body("password").notEmpty().withMessage("パスワードは必須です"),
 ];
 
 const forgotPasswordValidation = [
-  body("email").isEmail().withMessage("Email không đúng đ?nh d?ng"),
+  body("email").isEmail().withMessage("メールアドレスの形式が正しくありません"),
 ];
 
 const resetPasswordValidation = [
-  body("email").isEmail().withMessage("Email không đúng đ?nh d?ng"),
-  body("code").notEmpty().withMessage("Ma khong h?p l?"),
+  body("email").isEmail().withMessage("メールアドレスの形式が正しくありません"),
+  body("code").notEmpty().withMessage("コードが無効です"),
   body("newPassword")
     .isLength({ min: 6 })
-    .withMessage("Password ph?i có ít nh?t 6 k? t?"),
+    .withMessage("パスワードは6文字以上である必要があります"),
 ];
 
 router.post("/register", registerValidation, register);

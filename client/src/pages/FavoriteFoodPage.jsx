@@ -94,15 +94,6 @@ export default function FavoriteFood() {
         fetchFavorites(1); 
     }, []);
 
-    // --- UI ロジック ---
-    if (ロード中 && AUTH_TOKEN) {
-        return <div className="text-center p-10"><Loader2 className="animate-spin inline mr-2"/> お気に入りリストを読み込み中です...</div>;
-    }
-
-    if (エラー) {
-        return <div className="text-center p-10 text-red-600 font-semibold">{エラー}</div>;
-    }
-
     const dishesToShow = お気に入りリスト.map(fav => ({
         id: fav.dishId, 
         ...fav.dish, 
@@ -121,9 +112,20 @@ export default function FavoriteFood() {
             </div>
 
             {/* お気に入りリストコンテンツ */}
-            <div className="w-3/4 bg-white rounded-b-xl shadow-xl p-8 space-y-4">
-                {dishesToShow.length === 0 ? (
-                    <div className="text-center p-10 text-gray-500">現在、お気に入りリストは空です。</div>
+            <div className="w-3/4 bg-white rounded-b-xl shadow-xl p-8 space-y-4 min-h-[200px] flex flex-col">
+                {ロード中 ? (
+                    <div className="flex-1 flex items-center justify-center">
+                        <Loader2 className="animate-spin text-orange-500 mr-2" />
+                        <span className="text-gray-700 font-medium">お気に入りリストを読み込み中です...</span>
+                    </div>
+                ) : エラー ? (
+                    <div className="flex-1 flex items-center justify-center text-red-600 font-semibold text-center">
+                        {エラー}
+                    </div>
+                ) : dishesToShow.length === 0 ? (
+                    <div className="flex-1 flex items-center justify-center text-gray-500 text-center">
+                        現在、お気に入りリストは空です。
+                    </div>
                 ) : (
                     dishesToShow.map((dish) => (
                         <div
@@ -158,7 +160,7 @@ export default function FavoriteFood() {
             </div>
 
             {/* ページネーションコンポーネント */}
-            {全ページ数 > 1 && (
+            {!ロード中 && !エラー && 全ページ数 > 1 && (
                 <div className="w-3/4 mt-4 flex justify-center items-center gap-3 p-4 bg-white rounded-xl shadow">
                     <button
                         onClick={() => handlePageChange(現在ページ - 1)}
