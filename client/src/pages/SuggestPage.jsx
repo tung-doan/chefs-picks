@@ -4,85 +4,40 @@ import ClipLoader from "react-spinners/ClipLoader";
 import "../styles/SuggestPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRandom } from "@fortawesome/free-solid-svg-icons"; 
-import { useNavigate } from "react-router-dom";
 
-
-const API_URL = "http://localhost:5000/api/suggestions";
-
-const MOCK_DATA = [
-  {
-    name: "Cơm gà xối mỡ",
-    restaurant: "Quán A",
-    price: "45.000đ",
-    rating: 4.5,
-    image: "https://images.unsplash.com/photo-1604909053176-30c2f3eac5bf?q=80&w=1200"
-  },
-  {
-    name: "Bún bò Huế",
-    restaurant: "Quán B",
-    price: "40.000đ",
-    rating: 4.7,
-    image: "https://images.unsplash.com/photo-1604908177522-0404d59ebf07?q=80&w=1200"
-  },
-  {
-    name: "Mì Ý sốt bò bằm",
-    restaurant: "Quán C",
-    price: "55.000đ",
-    rating: 4.3,
-    image: "https://images.unsplash.com/photo-1601924582971-d7454f3b779a?q=80&w=1200"
-  }
-];
+const API_URL = "http://localhost:5000/api/suggestions"; // API backend
 
 const SuggestPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
-  const getRandomItems = (arr, count = 3) => {
-  const _arr = [...arr];
-  const result = [];
-  for (let i = 0; i < count && _arr.length > 0; i++) {
-    const index = Math.floor(Math.random() * _arr.length);
-    result.push(_arr.splice(index, 1)[0]);
-  }
-  return result;
-};
+
   const fetchSuggestions = async () => {
-  setLoading(true);
-  setError("");
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(API_URL);
 
-  try {
-    const res = await axios.get(API_URL);
-
-    if (res.data && res.data.length > 0) {
-      setSuggestions(getRandomItems(res.data, 3));
-    } else {
-      setError("No suggestions found.");
-      setSuggestions([]);
+      if (res.data && res.data.data && res.data.data.length > 0) {
+        setSuggestions(res.data.data);
+      } else {
+        setSuggestions([]);
+        setError("No suggestions found.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load suggestions.");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    setError("Failed to fetch suggestions. Showing mock data.");
-    setSuggestions(MOCK_DATA);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   useEffect(() => {
     fetchSuggestions();
   }, []);
 
-const navigate = useNavigate();
   return (
     <div className="suggest-page">
-      <button
-    className="btn-home"
-    onClick={() => navigate("/")}
-  >
-    🏠 Back to Home
-  </button>
       <div className="page-header">
         <h2>Shikiai AI CONCIERGE</h2>
       </div>
@@ -97,7 +52,7 @@ const navigate = useNavigate();
 
       {error && !loading && <p className="error">{error}</p>}
 
-      {!loading && suggestions.length > 0 && (
+      {!loading && !error && suggestions.length > 0 && (
         <div className="cards-container">
           {suggestions.map((item, idx) => (
             <div className="card" key={idx}>

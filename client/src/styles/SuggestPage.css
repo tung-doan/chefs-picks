@@ -94,22 +94,6 @@ h1 {
   font-size: 0.9rem;
   color: #ffb400;
 }
-.btn-home {
-  position: absolute;   /* Cố định vị trí */
-  top: 20px;            /* Cách mép trên 20px */
-  left: 20px;           /* Cách mép trái 20px */
-  padding: 10px 15px;
-  background-color: #ff6f00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1000;        /* Luôn nổi trên các phần khác */
-}
-
-.btn-home:hover {
-  background-color: #e65c00;
-}
 
 .btn-refresh {
   background-color: #ff6f00;
