@@ -4,8 +4,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 import "../styles/SuggestPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRandom } from "@fortawesome/free-solid-svg-icons"; 
+import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api/favorites";
+
+const API_URL = "http://localhost:5000/api/suggestions";
 
 const MOCK_DATA = [
   {
@@ -35,35 +37,52 @@ const SuggestPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  
+  const getRandomItems = (arr, count = 3) => {
+  const _arr = [...arr];
+  const result = [];
+  for (let i = 0; i < count && _arr.length > 0; i++) {
+    const index = Math.floor(Math.random() * _arr.length);
+    result.push(_arr.splice(index, 1)[0]);
+  }
+  return result;
+};
   const fetchSuggestions = async () => {
-    setLoading(true);
-    setError("");
+  setLoading(true);
+  setError("");
 
-    try {
-      const res = await axios.get(API_URL);
+  try {
+    const res = await axios.get(API_URL);
 
-      if (res.data && res.data.data && res.data.data.length > 0) {
-        setSuggestions(res.data.data);
-      } else {
-        setError("No suggestions found.");
-        setSuggestions([]);
-      }
-    } catch (err) {
-      console.error(err);
-      setError();
-      setSuggestions(MOCK_DATA);
-    } finally {
-      setLoading(false);
+    if (res.data && res.data.length > 0) {
+      setSuggestions(getRandomItems(res.data, 3));
+    } else {
+      setError("No suggestions found.");
+      setSuggestions([]);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setError("Failed to fetch suggestions. Showing mock data.");
+    setSuggestions(MOCK_DATA);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchSuggestions();
   }, []);
 
+const navigate = useNavigate();
   return (
     <div className="suggest-page">
+      <button
+    className="btn-home"
+    onClick={() => navigate("/")}
+  >
+    🏠 Back to Home
+  </button>
       <div className="page-header">
         <h2>Shikiai AI CONCIERGE</h2>
       </div>
