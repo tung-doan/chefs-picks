@@ -11,6 +11,7 @@ const dishRoutes = require("./routes/dish-router");
 const categoryRoutes = require("./routes/category-routes");
 const suggestionRouter = require("./routes/suggestions-routes");
 const historyRoutes = require("./routes/historyRoutes");
+const omakaseRoutes = require("./routes/omakase-routes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
