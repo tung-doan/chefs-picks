@@ -134,17 +134,55 @@ const DishDetail = () => {
     }, 2000);
   };
 
-  const handleOrder = () => {
-    if (!dish) return;
-    
-    // Thêm vào giỏ hàng nếu chưa có
-    if (!isInCart) {
-      addToCart(dish);
-    }
-    
-    // Chuyển đến trang giỏ hàng (hoặc trang thanh toán)
-    navigate('/cart');
+  const handleOrder = async () => {
+  if (!dish) return;
+
+  // 1. Kiểm tra userId
+  const userId = localStorage.getItem('userId');
+  if (!userId) {
+    alert("ログインしてください (Vui lòng đăng nhập)");
+    return;
+  }
+
+  // 2. Lấy ID nhà hàng an toàn
+  // Nếu đã populate, ID nằm trong ._id. Nếu chưa, nó chính là dish.restaurantId
+  const rId = dish.restaurantId?._id || dish.restaurantId;
+
+  // LOG để bạn kiểm tra trực tiếp trong Console khi bấm nút
+  console.log("Dữ liệu Dish gửi đi:", dish);
+  console.log("ID nhà hàng trích xuất được:", rId);
+
+  if (!rId) {
+    alert("エラー: レストランIDが見つかりません (Lỗi: Không tìm thấy ID nhà hàng của món ăn này!)");
+    return;
+  }
+
+  const orderData = {
+    userId: userId,
+    dishId: dish._id,
+    restaurantId: rId, // Đảm bảo truyền chuỗi ID, không phải Object
+    price: dish.price
   };
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/dishes/order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert("注文が完了し、履歴に保存されました！");
+      navigate('/history');
+    } else {
+      alert("Server error: " + result.message);
+    }
+  } catch (error) {
+    console.error("Lỗi kết nối:", error);
+    alert("サーバーに接続できません (Không thể kết nối tới server)");
+  }
+};
 
   const renderContent = () => {
     if (loading) {

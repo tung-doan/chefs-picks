@@ -10,6 +10,7 @@ const favoriteRoutes = require("./routes/favorite-routes");
 const dishRoutes = require("./routes/dish-router");
 const categoryRoutes = require("./routes/category-routes");
 const suggestionRouter = require("./routes/suggestions-routes");
+const historyRoutes = require("./routes/historyRoutes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -24,6 +25,7 @@ app.use("/api/favorites", favoriteRoutes);
 app.use("/api/dishes", dishRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/suggestions", suggestionRouter);
+app.use("/api/history", historyRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello! Server is running.");

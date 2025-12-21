@@ -4,6 +4,8 @@ const Dish = require("../models/Dish");
 const Restaurant = require("../models/Restaurant");
 const Category = require("../models/Category");
 
+const Order = require("../models/Order");
+
 const router = express.Router();
 
 // Helper function để validate ObjectId
@@ -168,6 +170,46 @@ router.get("/:id", async (req, res) => {
     res.json(dish);
   } catch (err) {
     console.error("Error fetching dish:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+
+
+// POST: Tạo đơn hàng mới (Lưu lịch sử ăn uống)
+router.post("/order", async (req, res) => {
+  try {
+    const { userId, dishId, restaurantId, price } = req.body;
+
+    // 1. Kiểm tra dữ liệu đầu vào cơ bản
+    if (!userId || !dishId || !restaurantId || !price) {
+      return res.status(400).json({ message: "Thiếu thông tin đơn hàng" });
+    }
+
+    // 2. Kiểm tra ID có hợp lệ không
+    if (!isValidObjectId(userId) || !isValidObjectId(dishId) || !isValidObjectId(restaurantId)) {
+      return res.status(400).json({ message: "ID không hợp lệ" });
+    }
+
+    // 3. Tạo bản ghi đơn hàng mới
+    const newOrder = new Order({
+      userId,
+      dishId,
+      restaurantId,
+      price
+    });
+
+    // 4. Lưu vào database
+    const savedOrder = await newOrder.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Đặt hàng thành công và đã ghi vào lịch sử",
+      order: savedOrder
+    });
+
+  } catch (err) {
+    console.error("Lỗi khi tạo đơn hàng:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
