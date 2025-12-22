@@ -9,6 +9,7 @@ import FavoriteFood from "../pages/FavoriteFoodPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import SuggestPage from "../pages/SuggestPage";
+import LunchSchedulePage from "../pages/LunchSchedulePage";
 
 
 const AppRoutes = () => {
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/menu/:id" element={<DishDetail />} />
         <Route path="/favorites" element={<FavoriteFood />} />
         <Route path="/suggest" element={<SuggestPage />} />
+        <Route path="/lunch-schedule" element={<LunchSchedulePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

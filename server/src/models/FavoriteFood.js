@@ -33,4 +33,5 @@ favoriteFoodSchema.statics.checkDuplicate = async function (userId, dishId) {
   return !!exists;
 };
 
-module.exports = mongoose.model("FavoriteFood", favoriteFoodSchema);
+// Prevent model overwrite during hot reload
+module.exports = mongoose.models.FavoriteFood || mongoose.model("FavoriteFood", favoriteFoodSchema);

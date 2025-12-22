@@ -38,4 +38,5 @@ categorySchema.statics.getActiveCategories = async function () {
   return this.find({ isActive: true }).sort({ name: 1 }).lean();
 };
 
-module.exports = mongoose.model("Category", categorySchema);
+// Prevent model overwrite during hot reload
+module.exports = mongoose.models.Category || mongoose.model("Category", categorySchema);

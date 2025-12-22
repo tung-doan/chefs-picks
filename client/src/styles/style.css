@@ -335,25 +335,39 @@ input:focus {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .highlights ul {
+    grid-template-columns: 1fr;
+  }
 }
 
 .highlight-item {
   background: #fff;
   border-radius: 16px;
   border: 1px solid #efe5d9;
-  padding: 16px 20px;
+  width: 100%;
+}
+
+.highlight-item a {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .highlight-info {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex: 1;
 }
 
 .icon-circle {

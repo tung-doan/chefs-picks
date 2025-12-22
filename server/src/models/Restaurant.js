@@ -18,5 +18,6 @@ const restaurantSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Restaurant", restaurantSchema);
+// Prevent model overwrite during hot reload
+module.exports = mongoose.models.Restaurant || mongoose.model("Restaurant", restaurantSchema);
 

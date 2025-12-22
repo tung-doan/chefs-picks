@@ -85,4 +85,5 @@ dishSchema.pre("save", function (next) {
   next();
 });
 
-module.exports = mongoose.model("Dish", dishSchema);
+// Prevent model overwrite during hot reload
+module.exports = mongoose.models.Dish || mongoose.model("Dish", dishSchema);

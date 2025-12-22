@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
 
 const userSchema = new Schema({
   name: {
@@ -31,4 +32,5 @@ const userSchema = new Schema({
   passwordResetExpires: Date,
 });
 
-module.exports = model('User', userSchema);
+// Prevent model overwrite during hot reload
+module.exports = mongoose.models.User || model('User', userSchema);
