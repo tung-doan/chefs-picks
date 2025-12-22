@@ -10,7 +10,7 @@ import {
   ShoppingCart
 } from 'lucide-react';
 import { API_BASE_URL } from '../config/api-config';
-import Header from '../components/layout/Header';
+import Header from '../components/layout/header';
 
 const formatPrice = (price) =>
   new Intl.NumberFormat('ja-JP', {
