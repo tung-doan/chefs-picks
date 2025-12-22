@@ -75,7 +75,7 @@ export default function FavoriteFood() {
         }
 
         try {
-            await axios.delete(`${API_BASE_URL}/${dishIdToRemove}`, apiConfig);
+            await axios.delete(`${API_BASE_URL}/api/${dishIdToRemove}`, apiConfig);
             alert("お気に入りから削除されました！");
             
             // 現在のページを再読み込み
