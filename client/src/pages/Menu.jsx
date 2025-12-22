@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Heart, Loader2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_BASE_URL } from '../config/api-config';
-import Header from '../components/layout/Header';
+import Header from '../components/layout/header';
 
 function Menu() {
   const [menuItems, setMenuItems] = useState([]);

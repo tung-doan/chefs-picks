@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Loader2, Calendar, Edit2, Save, Plus, X, AlertCircle } from "lucide-react";
-import Header from "../components/layout/Header";
+import Header from "../components/layout/header";
 import { lunchScheduleService } from "../services/lunch-schedule-service";
 import { API_BASE_URL } from "../config/api-config";
 import "../styles/LunchSchedulePage.css";

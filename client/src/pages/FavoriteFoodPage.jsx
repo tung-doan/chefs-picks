@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; 
 import { Loader2, Trash2 } from 'lucide-react';
-import Header from '../components/layout/Header'; 
+import Header from '../components/layout/header'; 
 
 // お気に入りAPIのベースURL
 const BASE_URL = "http://localhost:5000/api/favorites";

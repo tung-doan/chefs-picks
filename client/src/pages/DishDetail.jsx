@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, AlertCircle, Loader2, Star, MapPin, Utensils, ShoppingCart, Check, User } from 'lucide-react';
 import { API_BASE_URL } from '../config/api-config';
-import Header from '../components/layout/Header';
+import Header from '../components/layout/header';
 
 const fallbackImage =
   'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop';
