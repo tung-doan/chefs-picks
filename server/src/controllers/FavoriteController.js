@@ -1,4 +1,4 @@
-const FavoriteFood = require("../models/favoriteFood");
+const FavoriteFood = require("../models/FavoriteFood");
 const Dish = require("../models/Dish");
 const Category = require("../models/Category");
 
