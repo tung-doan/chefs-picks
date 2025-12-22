@@ -8,7 +8,7 @@ import {
   Mail,
 } from "lucide-react";
 import "../styles/style.css";
-import { API_BASE_URL } from "../config/api-config";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();

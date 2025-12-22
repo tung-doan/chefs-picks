@@ -4,8 +4,7 @@ import { Loader2, Trash2 } from 'lucide-react';
 import Header from '../components/layout/header'; 
 
 // お気に入りAPIのベースURL
-const BASE_URL = "http://localhost:5000/api/favorites";
-// トークンをローカルストレージから取得
+const API_BASE_URL = import.meta.env.VITE_API_URL;// トークンをローカルストレージから取得
 const AUTH_TOKEN = localStorage.getItem('authToken'); 
 
 export default function FavoriteFood() {
@@ -40,7 +39,7 @@ export default function FavoriteFood() {
         setエラー(null);
         try {
             // APIクエリにページネーションパラメータを追加
-            const response = await axios.get(`${BASE_URL}?page=${page}&limit=${limit}`, apiConfig);
+            const response = await axios.get(`${API_BASE_URL}?page=${page}&limit=${limit}`, apiConfig);
 
             setお気に入りリスト(response.data.data.favorites); 
             set現在ページ(response.data.data.pagination.currentPage);
@@ -76,7 +75,7 @@ export default function FavoriteFood() {
         }
 
         try {
-            await axios.delete(`${BASE_URL}/${dishIdToRemove}`, apiConfig);
+            await axios.delete(`${API_BASE_URL}/${dishIdToRemove}`, apiConfig);
             alert("お気に入りから削除されました！");
             
             // 現在のページを再読み込み
