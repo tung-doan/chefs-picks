@@ -39,7 +39,7 @@ export default function FavoriteFood() {
         setエラー(null);
         try {
             // APIクエリにページネーションパラメータを追加
-            const response = await axios.get(`${API_BASE_URL}?page=${page}&limit=${limit}`, apiConfig);
+            const response = await axios.get(`${API_BASE_URL}/favorites?page=${page}&limit=${limit}`, apiConfig);
 
             setお気に入りリスト(response.data.data.favorites); 
             set現在ページ(response.data.data.pagination.currentPage);
@@ -75,7 +75,7 @@ export default function FavoriteFood() {
         }
 
         try {
-            await axios.delete(`${API_BASE_URL}/api/${dishIdToRemove}`, apiConfig);
+            await axios.delete(`${API_BASE_URL}/favorites/${dishIdToRemove}`, apiConfig);
             alert("お気に入りから削除されました！");
             
             // 現在のページを再読み込み
