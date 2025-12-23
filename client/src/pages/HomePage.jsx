@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import { Loader2, AlertCircle } from "lucide-react";
 import Header from "../components/layout/Header";
 import { API_BASE_URL } from "../config/api-config";
