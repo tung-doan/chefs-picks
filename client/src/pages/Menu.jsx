@@ -400,11 +400,6 @@ function Menu() {
                     <div className="flex justify-between items-start mb-2">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
-                        {item.categoryId && (
-                          <span className="inline-block px-2 py-1 text-xs text-gray-600 bg-gray-100 rounded mt-1">
-                            {typeof item.categoryId === 'object' ? item.categoryId.name : item.categoryId}
-                          </span>
-                        )}
                       </div>
                       <button
                         onClick={(e) => {

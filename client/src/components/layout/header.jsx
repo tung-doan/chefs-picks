@@ -69,24 +69,30 @@ const Header = () => {
           <Link className={isActive("/menu") || location.pathname.startsWith("/menu/") ? "active" : ""} to="/menu">
             メニュー
           </Link>
-          <Link className={isActive("/favorites") ? "active" : ""} to="/favorites">
-            お気に入り
-          </Link>
-          <Link className={isActive("/lunch-schedule") ? "active" : ""} to="/lunch-schedule">
-            昼食のスケジュール
-          </Link>
-          <Link className={isActive("/todays-picks") ? "active" : ""} to="/todays-picks">
-            今日のおすすめ
-          </Link>
-          <Link className={isActive("/surprise-me") ? "active" : ""} to="/surprise-me">
-            サプライズ
-          </Link>
-          <Link className={isActive("/map") ? "active" : ""} to="/map">
-            近く
-          </Link>
-          <Link className={isActive("/history") ? "active" : ""} to="/history">
-            履歴
-          </Link>
+          
+          {/* Chỉ hiển thị các link sau khi đã đăng nhập */}
+          {user && (
+            <>
+              <Link className={isActive("/favorites") ? "active" : ""} to="/favorites">
+                お気に入り
+              </Link>
+              <Link className={isActive("/lunch-schedule") ? "active" : ""} to="/lunch-schedule">
+                昼食のスケジュール
+              </Link>
+              <Link className={isActive("/todays-picks") ? "active" : ""} to="/todays-picks">
+                今日のおすすめ
+              </Link>
+              <Link className={isActive("/surprise-me") ? "active" : ""} to="/surprise-me">
+                サプライズ
+              </Link>
+              <Link className={isActive("/map") ? "active" : ""} to="/map">
+                近く
+              </Link>
+              <Link className={isActive("/history") ? "active" : ""} to="/history">
+                履歴
+              </Link>
+            </>
+          )}
         </nav>
 
         {user ? (
