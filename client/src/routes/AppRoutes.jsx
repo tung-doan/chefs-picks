@@ -31,6 +31,7 @@ const AppRoutes = () => {
         <Route path="/map" element={<LunchConciergeMapPage />} />
         <Route path="/lunch-schedule" element={<LunchSchedulePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/dish/:id" element={<DishDetail />} />
       </Routes>
     </BrowserRouter>
   );
