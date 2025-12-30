@@ -9,7 +9,7 @@ import "../styles/FoodCard.css";
 import FoodCard from "../components/common/FoodCard";
 import { API_BASE_URL } from '../config/api-config';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL + "/api";
+//const API_BASE_URL = import.meta.env.VITE_API_URL + "/api";
 const API_SUGGEST = `${API_BASE_URL}/omakase`;
 const API_CATEGORIES = `${API_BASE_URL}/categories`;
 
