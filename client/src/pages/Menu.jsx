@@ -5,12 +5,23 @@ import { API_BASE_URL } from '../config/api-config';
 import Header from '../components/layout/header';
 
 function Menu() {
+  const makeSlug = (s) => {
+    if (!s) return '';
+    try {
+      return encodeURIComponent(s.toString().toLowerCase().replace(/\s+/g, '-'));
+    } catch (e) {
+      return '';
+    }
+  };
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
   const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestionLoading, setSuggestionLoading] = useState(false);
   const [cuisine, setCuisine] = useState('');
   const [priceRange, setPriceRange] = useState('');
   const [sortBy, setSortBy] = useState('popular');
@@ -80,6 +91,52 @@ function Menu() {
   useEffect(() => {
     fetchDishes(currentPage);
   }, [currentPage, cuisine, priceRange, sortBy, searchTerm]);
+
+  // Debounced suggestions fetch
+  useEffect(() => {
+    const minChars = 1;
+    if (!searchTerm || searchTerm.trim().length < minChars) {
+      setSuggestions([]);
+      setSuggestionLoading(false);
+      return;
+    }
+
+    let mounted = true;
+    setSuggestionLoading(true);
+    const handle = setTimeout(async () => {
+      try {
+        const params = new URLSearchParams();
+        params.append('q', searchTerm.trim());
+        params.append('limit', 10);
+
+        const res = await fetch(`${API_BASE_URL}/dishes/search?${params.toString()}`);
+        if (!mounted) return;
+        if (!res.ok) {
+          setSuggestions([]);
+        } else {
+          const data = await res.json();
+          let items = Array.isArray(data) ? data : (data.dishes || data.data || []);
+          // Map to names (avoid duplicates)
+          const names = [];
+          for (const it of items) {
+            const n = it.name || it;
+            if (n && !names.includes(n)) names.push(n);
+            if (names.length >= 10) break;
+          }
+          setSuggestions(names);
+        }
+      } catch (e) {
+        setSuggestions([]);
+      } finally {
+        if (mounted) setSuggestionLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      mounted = false;
+      clearTimeout(handle);
+    };
+  }, [searchTerm]);
 
   const fetchDishes = async (page = 1) => {
     try {
@@ -304,9 +361,40 @@ function Menu() {
                 type="text"
                 placeholder="メニューを検索（例： curry, ramen, salad）"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => { if (searchTerm) setShowSuggestions(true); }}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
+
+              {/* Suggestions dropdown */}
+              {showSuggestions && (
+                <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-sm z-50 max-h-56 overflow-auto">
+                  {suggestionLoading ? (
+                    <div className="px-4 py-2 text-sm text-gray-500">検索中...</div>
+                  ) : suggestions.length === 0 ? (
+                    <div className="px-4 py-2 text-sm text-gray-500">候補はありません</div>
+                  ) : (
+                    suggestions.map((s, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => {
+                          setSearchTerm(s.name || s);
+                          setShowSuggestions(false);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm"
+                      >
+                        {s.name || s}
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
             
             <select
@@ -381,7 +469,8 @@ function Menu() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {menuItems.map(item => (
                 <Link
-                  to={`/menu/${item._id}`}
+                  to={`/menu/${makeSlug(item.name)}`}
+                  state={{ id: item._id }}
                   key={item._id}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
                 >

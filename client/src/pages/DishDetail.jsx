@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ArrowLeft, AlertCircle, Loader2, Star, MapPin, Utensils, ShoppingCart, Check, User } from 'lucide-react';
 import Header from '../components/layout/header';
 
@@ -88,7 +88,9 @@ const sampleDetailedDescription = {
 };
 
 const DishDetail = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const location = useLocation();
+  const id = location.state?.id || params.id;
   const navigate = useNavigate();
   const [dish, setDish] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -154,9 +156,10 @@ const DishDetail = () => {
     }
   }
 
-  if (!userId) {
+    if (!userId) {
     // Chuyển hướng tới login và trả lại trang hiện tại khi đăng nhập xong
-    navigate(`/login?redirect=/menu/${id}`);
+    // Use actual dish id (dish._id) when available so redirect works even when URL shows slug
+    navigate(`/login?redirect=/menu/${dish?._id || id}`);
     return;
   }
 
