@@ -1,42 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Heart, Loader2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-import { API_BASE_URL } from '../config/api-config';
-import Header from '../components/layout/header';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  Search,
+  Heart,
+  Loader2,
+  AlertCircle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { API_BASE_URL } from "../config/api-config";
+import Header from "../components/layout/header";
 
 function Menu() {
   const makeSlug = (s) => {
-    if (!s) return '';
+    if (!s) return "";
     try {
-      return encodeURIComponent(s.toString().toLowerCase().replace(/\s+/g, '-'));
+      return encodeURIComponent(
+        s.toString().toLowerCase().replace(/\s+/g, "-")
+      );
     } catch (e) {
-      return '';
+      return "";
     }
   };
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionLoading, setSuggestionLoading] = useState(false);
-  const [cuisine, setCuisine] = useState('');
-  const [priceRange, setPriceRange] = useState('');
-  const [sortBy, setSortBy] = useState('popular');
+  const [cuisine, setCuisine] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [sortBy, setSortBy] = useState("popular");
   const [favorites, setFavorites] = useState([]);
   const [favoriteLoading, setFavoriteLoading] = useState({}); // Track loading state per dish
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 5; // Số món ăn mỗi trang
+  const itemsPerPage = 6; // Số món ăn mỗi trang
 
   // Lấy token từ localStorage
   const getAuthToken = () => {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem("authToken");
   };
 
   // Load favorites từ API khi component mount
@@ -45,7 +54,7 @@ function Menu() {
       const token = getAuthToken();
       if (!token) {
         // Nếu chưa đăng nhập, load từ localStorage như cũ
-        const savedFavorites = localStorage.getItem('favorites');
+        const savedFavorites = localStorage.getItem("favorites");
         if (savedFavorites) {
           setFavorites(JSON.parse(savedFavorites));
         }
@@ -56,8 +65,8 @@ function Menu() {
         // Lấy danh sách favorites từ API
         const response = await fetch(`${API_BASE_URL}/favorites`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -65,14 +74,16 @@ function Menu() {
           const data = await response.json();
           if (data.success && data.data && data.data.favorites) {
             // Lấy danh sách dishId từ favorites
-            const favoriteIds = data.data.favorites.map(fav => fav.dishId.toString());
+            const favoriteIds = data.data.favorites.map((fav) =>
+              fav.dishId.toString()
+            );
             setFavorites(favoriteIds);
           }
         }
       } catch (err) {
-        console.error('Error loading favorites:', err);
+        console.error("Error loading favorites:", err);
         // Fallback to localStorage nếu API fail
-        const savedFavorites = localStorage.getItem('favorites');
+        const savedFavorites = localStorage.getItem("favorites");
         if (savedFavorites) {
           setFavorites(JSON.parse(savedFavorites));
         }
@@ -86,7 +97,7 @@ function Menu() {
   useEffect(() => {
     setCurrentPage(1); // Reset về trang 1 khi filter thay đổi
   }, [cuisine, priceRange, sortBy, searchTerm]);
-  
+
   // Fetch dishes khi page hoặc filters thay đổi
   useEffect(() => {
     fetchDishes(currentPage);
@@ -94,8 +105,7 @@ function Menu() {
 
   // Debounced suggestions fetch
   useEffect(() => {
-    const minChars = 1;
-    if (!searchTerm || searchTerm.trim().length < minChars) {
+    if (!searchTerm) {
       setSuggestions([]);
       setSuggestionLoading(false);
       return;
@@ -106,16 +116,20 @@ function Menu() {
     const handle = setTimeout(async () => {
       try {
         const params = new URLSearchParams();
-        params.append('q', searchTerm.trim());
-        params.append('limit', 10);
+        params.append("q", searchTerm.trim());
+        params.append("limit", 10);
 
-        const res = await fetch(`${API_BASE_URL}/dishes/search?${params.toString()}`);
+        const res = await fetch(
+          `${API_BASE_URL}/dishes/search?${params.toString()}`
+        );
         if (!mounted) return;
         if (!res.ok) {
           setSuggestions([]);
         } else {
           const data = await res.json();
-          let items = Array.isArray(data) ? data : (data.dishes || data.data || []);
+          let items = Array.isArray(data)
+            ? data
+            : data.dishes || data.data || [];
           // Map to names (avoid duplicates)
           const names = [];
           for (const it of items) {
@@ -145,19 +159,19 @@ function Menu() {
 
       let url = `${API_BASE_URL}/dishes`;
       const params = new URLSearchParams();
-      
+
       // Thêm pagination params cho endpoint chính
       let usePagination = false;
 
       // Xử lý search
       if (searchTerm.trim()) {
         url = `${API_BASE_URL}/dishes/search`;
-        params.append('q', searchTerm);
+        params.append("q", searchTerm);
       }
       // Xử lý filter by category
       else if (cuisine) {
         // Lấy categoryId từ tên category
-        const category = categories.find(cat => cat.name === cuisine);
+        const category = categories.find((cat) => cat.name === cuisine);
         if (category) {
           url = `${API_BASE_URL}/dishes/category/${category._id}`;
         }
@@ -166,24 +180,24 @@ function Menu() {
       else if (priceRange) {
         url = `${API_BASE_URL}/dishes/price`;
         const ranges = {
-          'low': { min: 0, max: 500 },
-          'mid': { min: 500, max: 1000 },
-          'high': { min: 1000, max: 10000 }
+          low: { min: 0, max: 500 },
+          mid: { min: 500, max: 1000 },
+          high: { min: 1000, max: 10000 },
         };
         if (ranges[priceRange]) {
-          params.append('min', ranges[priceRange].min);
-          params.append('max', ranges[priceRange].max);
+          params.append("min", ranges[priceRange].min);
+          params.append("max", ranges[priceRange].max);
         }
       }
       // Xử lý popular
-      else if (sortBy === 'popular') {
+      else if (sortBy === "popular") {
         url = `${API_BASE_URL}/dishes/popular`;
-        params.append('limit', 50);
+        params.append("limit", 50);
       } else {
         // Endpoint chính hỗ trợ pagination
         usePagination = true;
-        params.append('page', page);
-        params.append('limit', itemsPerPage);
+        params.append("page", page);
+        params.append("limit", itemsPerPage);
       }
 
       // Thêm params vào URL
@@ -192,16 +206,16 @@ function Menu() {
       }
 
       const response = await fetch(url);
-      
+
       if (!response.ok) {
-        throw new Error('Failed to fetch dishes');
+        throw new Error("Failed to fetch dishes");
       }
 
       const data = await response.json();
-      
+
       // Xử lý data tùy theo response format
-      let dishes = Array.isArray(data) ? data : (data.dishes || []);
-      
+      let dishes = Array.isArray(data) ? data : data.dishes || [];
+
       // Xử lý pagination nếu có
       if (usePagination && data.pagination) {
         setCurrentPage(data.pagination.page);
@@ -213,7 +227,7 @@ function Menu() {
         const totalPagesCalc = Math.ceil(total / itemsPerPage);
         setTotalPages(totalPagesCalc);
         setTotalItems(total);
-        
+
         // Pagination client-side
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -222,19 +236,21 @@ function Menu() {
 
       // Sort client-side nếu cần (chỉ khi không phải endpoint chính)
       if (!usePagination) {
-        if (sortBy === 'price-low') {
+        if (sortBy === "price-low") {
           dishes.sort((a, b) => a.price - b.price);
-        } else if (sortBy === 'price-high') {
+        } else if (sortBy === "price-high") {
           dishes.sort((a, b) => b.price - a.price);
-        } else if (sortBy === 'popular') {
-          dishes.sort((a, b) => (b.favoriteCount || 0) - (a.favoriteCount || 0));
+        } else if (sortBy === "popular") {
+          dishes.sort(
+            (a, b) => (b.favoriteCount || 0) - (a.favoriteCount || 0)
+          );
         }
       }
 
       setMenuItems(dishes);
     } catch (err) {
       setError(err.message);
-      console.error('Error fetching dishes:', err);
+      console.error("Error fetching dishes:", err);
     } finally {
       setLoading(false);
     }
@@ -247,10 +263,10 @@ function Menu() {
         const response = await fetch(`${API_BASE_URL}/categories`);
         if (response.ok) {
           const data = await response.json();
-          setCategories(Array.isArray(data) ? data : (data.categories || []));
+          setCategories(Array.isArray(data) ? data : data.categories || []);
         }
       } catch (err) {
-        console.error('Error fetching categories:', err);
+        console.error("Error fetching categories:", err);
       }
     };
     fetchCategories();
@@ -258,43 +274,43 @@ function Menu() {
 
   const toggleFavorite = async (dishId) => {
     const token = getAuthToken();
-    
+
     // Nếu chưa đăng nhập, yêu cầu đăng nhập
     if (!token) {
-      alert('お気に入り機能を使用するにはログインが必要です。');
+      alert("お気に入り機能を使用するにはログインが必要です。");
       return;
     }
 
     const isFavorite = favorites.includes(dishId);
-    setFavoriteLoading(prev => ({ ...prev, [dishId]: true }));
+    setFavoriteLoading((prev) => ({ ...prev, [dishId]: true }));
 
     try {
       if (isFavorite) {
         // Xóa khỏi yêu thích
         const response = await fetch(`${API_BASE_URL}/favorites/${dishId}`, {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
         if (response.ok) {
           const data = await response.json();
           if (data.success) {
-            setFavorites(prev => prev.filter(id => id !== dishId));
+            setFavorites((prev) => prev.filter((id) => id !== dishId));
           }
         } else {
           const errorData = await response.json();
-          alert(errorData.message || 'お気に入りから削除できませんでした');
+          alert(errorData.message || "お気に入りから削除できませんでした");
         }
       } else {
         // Thêm vào yêu thích
         const response = await fetch(`${API_BASE_URL}/favorites`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ dishId }),
         });
@@ -302,61 +318,64 @@ function Menu() {
         if (response.ok) {
           const data = await response.json();
           if (data.success) {
-            setFavorites(prev => [...prev, dishId]);
+            setFavorites((prev) => [...prev, dishId]);
           }
         } else {
           const errorData = await response.json();
           if (response.status === 409) {
             // Đã có trong danh sách, cập nhật state
-            setFavorites(prev => [...prev, dishId]);
+            setFavorites((prev) => [...prev, dishId]);
           } else {
-            alert(errorData.message || 'お気に入りに追加できませんでした');
+            alert(errorData.message || "お気に入りに追加できませんでした");
           }
         }
       }
     } catch (err) {
-      console.error('Error toggling favorite:', err);
-      alert('ネットワークエラーが発生しました');
+      console.error("Error toggling favorite:", err);
+      alert("ネットワークエラーが発生しました");
     } finally {
-      setFavoriteLoading(prev => ({ ...prev, [dishId]: false }));
+      setFavoriteLoading((prev) => ({ ...prev, [dishId]: false }));
     }
   };
 
   const handleClearFilters = () => {
-    setSearchTerm('');
-    setCuisine('');
-    setPriceRange('');
-    setSortBy('popular');
+    setSearchTerm("");
+    setCuisine("");
+    setPriceRange("");
+    setSortBy("popular");
     setCurrentPage(1);
   };
-  
+
   // Hàm xử lý chuyển trang
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   // Format price theo VND
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(price);
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       {/* Search and Filters Section */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           {/* Search and Filters */}
           <div className="flex flex-wrap gap-3">
             <div className="flex-1 min-w-64 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+              <Search
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                size={20}
+              />
               <input
                 type="text"
                 placeholder="メニューを検索（例： curry, ramen, salad）"
@@ -365,18 +384,46 @@ function Menu() {
                   setSearchTerm(e.target.value);
                   setShowSuggestions(true);
                 }}
-                onFocus={() => { if (searchTerm) setShowSuggestions(true); }}
+                onFocus={() => {
+                  if (searchTerm) setShowSuggestions(true);
+                }}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
+              {searchTerm && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setShowSuggestions(false);
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    fontSize: "18px",
+                    lineHeight: 1,
+                  }}
+                  aria-label="検索をクリア"
+                  tabIndex={0}
+                >
+                  ×
+                </button>
+              )}
 
               {/* Suggestions dropdown */}
               {showSuggestions && (
                 <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-sm z-50 max-h-56 overflow-auto">
                   {suggestionLoading ? (
-                    <div className="px-4 py-2 text-sm text-gray-500">検索中...</div>
+                    <div className="px-4 py-2 text-sm text-gray-500">
+                      検索中...
+                    </div>
                   ) : suggestions.length === 0 ? (
-                    <div className="px-4 py-2 text-sm text-gray-500">候補はありません</div>
+                    <div className="px-4 py-2 text-sm text-gray-500">
+                      候補はありません
+                    </div>
                   ) : (
                     suggestions.map((s, idx) => (
                       <button
@@ -396,7 +443,7 @@ function Menu() {
                 </div>
               )}
             </div>
-            
+
             <select
               value={cuisine}
               onChange={(e) => setCuisine(e.target.value)}
@@ -404,11 +451,13 @@ function Menu() {
               disabled={loading}
             >
               <option value="">料理</option>
-              {categories.map(cat => (
-                <option key={cat._id} value={cat.name}>{cat.name}</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat.name}>
+                  {cat.name}
+                </option>
               ))}
             </select>
-            
+
             <select
               value={priceRange}
               onChange={(e) => setPriceRange(e.target.value)}
@@ -420,7 +469,7 @@ function Menu() {
               <option value="mid">500 - 1000</option>
               <option value="high">1000以上</option>
             </select>
-            
+
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -431,7 +480,7 @@ function Menu() {
               <option value="price-low">価格：安い順</option>
               <option value="price-high">価格：高い順</option>
             </select>
-            
+
             <button
               onClick={handleClearFilters}
               className="px-6 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -467,7 +516,7 @@ function Menu() {
         {!loading && !error && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {menuItems.map(item => (
+              {menuItems.map((item) => (
                 <Link
                   to={`/menu/${makeSlug(item.name)}`}
                   state={{ id: item._id }}
@@ -475,20 +524,26 @@ function Menu() {
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
                 >
                   <div className="relative h-48 bg-gray-200">
-                    <img 
-                      src={item.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'} 
+                    <img
+                      src={
+                        item.image ||
+                        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop"
+                      }
                       alt={item.name}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop';
+                        e.target.src =
+                          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop";
                       }}
                     />
                   </div>
-                  
+
                   <div className="p-4">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          {item.name}
+                        </h3>
                       </div>
                       <button
                         onClick={(e) => {
@@ -501,22 +556,29 @@ function Menu() {
                         disabled={favoriteLoading[item._id]}
                       >
                         {favoriteLoading[item._id] ? (
-                          <Loader2 size={20} className="animate-spin text-orange-500" />
+                          <Loader2
+                            size={20}
+                            className="animate-spin text-orange-500"
+                          />
                         ) : (
                           <Heart
                             size={20}
-                            className={favorites.includes(item._id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}
+                            className={
+                              favorites.includes(item._id)
+                                ? "fill-red-500 text-red-500"
+                                : "text-gray-400"
+                            }
                           />
                         )}
                       </button>
                     </div>
-                    
+
                     {item.description && (
                       <p className="text-sm text-gray-600 mb-2 line-clamp-2">
                         {item.description}
                       </p>
                     )}
-                    
+
                     <div className="flex justify-between items-center mt-3">
                       <div className="flex items-center gap-1 text-sm text-gray-600">
                         <span>評価：</span>
@@ -527,7 +589,7 @@ function Menu() {
                         {formatPrice(item.price)}
                       </span>
                     </div>
-                    
+
                     {!item.isAvailable && (
                       <div className="mt-2 text-center text-sm text-red-600 bg-red-50 py-1 rounded">
                         現在利用できません
@@ -537,13 +599,13 @@ function Menu() {
                 </Link>
               ))}
             </div>
-            
+
             {menuItems.length === 0 && (
               <div className="text-center py-12 text-gray-500">
                 条件に一致する商品が見つかりません
               </div>
             )}
-            
+
             {/* Pagination Component */}
             {totalPages > 1 && (
               <div className="mt-8 flex justify-center items-center gap-2">
@@ -555,7 +617,7 @@ function Menu() {
                   <ChevronLeft size={18} />
                   <span>前へ</span>
                 </button>
-                
+
                 {/* Page numbers */}
                 <div className="flex items-center gap-1">
                   {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -569,15 +631,15 @@ function Menu() {
                     } else {
                       pageNum = currentPage - 2 + i;
                     }
-                    
+
                     return (
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
                         className={`px-3 py-2 min-w-[40px] border rounded-lg transition-colors ${
                           currentPage === pageNum
-                            ? 'bg-orange-500 text-white border-orange-500'
-                            : 'border-gray-300 hover:bg-gray-50'
+                            ? "bg-orange-500 text-white border-orange-500"
+                            : "border-gray-300 hover:bg-gray-50"
                         }`}
                       >
                         {pageNum}
@@ -585,7 +647,7 @@ function Menu() {
                     );
                   })}
                 </div>
-                
+
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
@@ -596,7 +658,7 @@ function Menu() {
                 </button>
               </div>
             )}
-            
+
             {/* Pagination info */}
             {totalPages > 1 && (
               <div className="mt-4 text-center text-sm text-gray-600">

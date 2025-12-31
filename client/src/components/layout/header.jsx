@@ -79,11 +79,8 @@ const Header = () => {
               <Link className={isActive("/lunch-schedule") ? "active" : ""} to="/lunch-schedule">
                 昼食のスケジュール
               </Link>
-              <Link className={isActive("/todays-picks") ? "active" : ""} to="/todays-picks">
+              <Link className={isActive("/suggest") ? "active" : ""} to="/suggest">
                 今日のおすすめ
-              </Link>
-              <Link className={isActive("/surprise-me") ? "active" : ""} to="/surprise-me">
-                サプライズ
               </Link>
               <Link className={isActive("/map") ? "active" : ""} to="/map">
                 近く

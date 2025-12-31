@@ -13,6 +13,30 @@ const isValidObjectId = (id) => {
   return mongoose.Types.ObjectId.isValid(id);
 };
 
+router.get("/search", async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || q.toString().trim() === "") {
+      return res.json([]);
+    }
+
+    const keyword = q.toString().trim();
+    const dishes = await Dish.find({
+      isAvailable: true,
+      $or: [
+        { name: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    })
+      .limit(20)
+      .select("-__v");
+
+    res.json(dishes);
+  } catch (err) {
+    res.status(500).json({ message: "Search error", error: err.message });
+  }
+});
+
 // GET all dishes (có pagination)
 router.get("/", async (req, res) => {
   try {
@@ -80,28 +104,6 @@ router.get("/category/:categoryId", async (req, res) => {
   }
 });
 
-// Search dishes
-router.get("/search", async (req, res) => {
-  try {
-    const { q } = req.query;
-
-    if (!q || q.trim() === "") {
-      return res.status(400).json({ message: "Search query is required" });
-    }
-
-    const dishes = await Dish.find(
-      { $text: { $search: q }, isAvailable: true },
-      { score: { $meta: "textScore" } }
-    )
-      .sort({ score: { $meta: "textScore" } })
-      .select("-__v");
-
-    res.json(dishes);
-  } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
-
 // GET popular dishes
 router.get("/popular", async (req, res) => {
   try {
@@ -133,7 +135,9 @@ router.get("/price", async (req, res) => {
     }
 
     if (min > max) {
-      return res.status(400).json({ message: "Min price cannot exceed max price" });
+      return res
+        .status(400)
+        .json({ message: "Min price cannot exceed max price" });
     }
 
     const dishes = await Dish.find({
@@ -174,8 +178,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-
 // POST: Tạo đơn hàng mới (Lưu lịch sử ăn uống)
 router.post("/order", async (req, res) => {
   try {
@@ -187,7 +189,11 @@ router.post("/order", async (req, res) => {
     }
 
     // 2. Kiểm tra ID có hợp lệ không
-    if (!isValidObjectId(userId) || !isValidObjectId(dishId) || !isValidObjectId(restaurantId)) {
+    if (
+      !isValidObjectId(userId) ||
+      !isValidObjectId(dishId) ||
+      !isValidObjectId(restaurantId)
+    ) {
       return res.status(400).json({ message: "ID không hợp lệ" });
     }
 
@@ -196,7 +202,7 @@ router.post("/order", async (req, res) => {
       userId,
       dishId,
       restaurantId,
-      price
+      price,
     });
 
     // 4. Lưu vào database
@@ -205,9 +211,8 @@ router.post("/order", async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Đặt hàng thành công và đã ghi vào lịch sử",
-      order: savedOrder
+      order: savedOrder,
     });
-
   } catch (err) {
     console.error("Lỗi khi tạo đơn hàng:", err);
     res.status(500).json({ message: "Server error", error: err.message });

@@ -145,7 +145,7 @@ export default function FavoriteFood() {
                             </div>
 
                             <div className="flex flex-col items-end gap-2">
-                                <span className="text-orange-600 font-bold">${dish.price}</span> 
+                                <span className="text-orange-600 font-bold">{dish.price} đ</span> 
                                 <button 
                                     onClick={() => handleRemoveFavorite(dish.id)}
                                     className="flex items-center gap-1 px-4 py-1 bg-red-400 text-white rounded-md hover:bg-red-500 transition"

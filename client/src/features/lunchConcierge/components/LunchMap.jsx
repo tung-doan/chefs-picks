@@ -16,9 +16,11 @@ const LunchMap = ({ restaurants, activeId, onMapReady, onMarkerClick }) => {
   const markerLayerRef = useRef(null);
   const iconRef = useRef(null);
 
+  // KHỞI TẠO MAP (Chạy 1 lần duy nhất khi mount)
   useEffect(() => {
-    if (!mapContainerRef.current || mapRef.current) return;
+    if (!mapContainerRef.current) return; // Nếu đã có map rồi thì không tạo lại
 
+    // Setup Icon
     iconRef.current = L.icon({
       iconUrl: markerIcon,
       shadowUrl: markerShadow,
@@ -28,60 +30,75 @@ const LunchMap = ({ restaurants, activeId, onMapReady, onMarkerClick }) => {
       shadowSize: [41, 41],
     });
 
-    const defaultCenter = restaurants.length
-      ? [restaurants[0].coordinates.lat, restaurants[0].coordinates.lng]
-      : [0, 0];
+    // Init Map
+    const defaultCenter = [35.6895, 139.6917]; // Tokyo (hoặc tọa độ mặc định của bạn)
+
     const mapInstance = L.map(mapContainerRef.current, mapOptions).setView(
       defaultCenter,
       13
     );
 
     mapRef.current = mapInstance;
-    if (typeof onMapReady === "function") {
-      onMapReady(mapInstance);
-    }
 
+    // Setup Tile Layer
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(mapInstance);
 
+    // Setup Marker Layer Group
     markerLayerRef.current = L.layerGroup().addTo(mapInstance);
 
+    if (typeof onMapReady === "function") {
+      onMapReady(mapInstance);
+    }
+
+    // Cleanup khi unmount hẳn component
     return () => {
       mapInstance.remove();
       mapRef.current = null;
       markersRef.current = {};
       markerLayerRef.current = null;
-      if (typeof onMapReady === "function") {
-        onMapReady(null);
-      }
     };
-  }, [onMapReady, restaurants]);
+  }, []);
 
   useEffect(() => {
-    if (!markerLayerRef.current) return;
+    if (!mapRef.current || !markerLayerRef.current) return;
 
+    // Xóa marker cũ
     markerLayerRef.current.clearLayers();
     markersRef.current = {};
 
+    // Thêm marker mới
     restaurants.forEach((restaurant) => {
-      const { lat, lng } = restaurant.coordinates;
-      const marker = L.marker([lat, lng], { icon: iconRef.current })
-        .addTo(markerLayerRef.current)
-        .bindPopup(restaurant.name);
+      // Xử lý an toàn cho tọa độ
+      let lat, lng;
+      if (restaurant.coordinates) {
+        lat = restaurant.coordinates.lat;
+        lng = restaurant.coordinates.lng;
+      } else {
+        lat = restaurant.latitude || restaurant.lat;
+        lng = restaurant.longitude || restaurant.lng;
+      }
 
-      marker.on("click", () => {
-        if (typeof onMarkerClick === "function") {
-          onMarkerClick(restaurant.id);
-        }
-      });
+      if (lat && lng) {
+        const marker = L.marker([lat, lng], { icon: iconRef.current })
+          .addTo(markerLayerRef.current)
+          .bindPopup(restaurant.name);
 
-      markersRef.current[restaurant.id] = marker;
+        marker.on("click", () => {
+          if (typeof onMarkerClick === "function") {
+            onMarkerClick(restaurant.id);
+          }
+        });
+
+        markersRef.current[restaurant.id] = marker;
+      }
     });
   }, [restaurants, onMarkerClick]);
 
   useEffect(() => {
-    if (!activeId) return;
+    if (!activeId || !markersRef.current) return;
+
     const marker = markersRef.current[activeId];
     if (marker) {
       marker.openPopup();

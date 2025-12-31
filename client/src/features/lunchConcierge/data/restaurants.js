@@ -6,7 +6,7 @@ export const restaurants = [
     distanceKm: 0.6,
     coordinates: { lat: 35.6895, lng: 139.6917 },
     imageURL:
-      "https://images.unsplash.com/photo-1481931715705-36f0c4cb4563?auto=format&fit=crop&w=800&q=80",
+      "https://static-content.owner.com/funnel/images/54ff2669-9402-4f65-8a31-e45aa5751387?v=6917108158&w=3840&q=80&auto=format",
   },
   {
     id: "miso-hearth",

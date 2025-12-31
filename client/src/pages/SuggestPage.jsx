@@ -7,7 +7,6 @@ import { faRandom } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "../styles/FoodCard.css";
 import FoodCard from "../components/common/FoodCard";
-import { API_BASE_URL } from '../config/api-config';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL + "/api";
 const API_SUGGEST = `${API_BASE_URL}/omakase`;
@@ -85,14 +84,14 @@ const SuggestPage = () => {
   return (
     <div className="suggest-page">
       <button className="btn-home" onClick={() => navigate("/")}>
-        🏠 Back to Home
+        🏠 ホームに戻る
       </button>
 
-     <h2 className="title-tech">
-     Shikiai <span>AI</span> CONCIERGE
-     </h2>
+      <h2 className="title-tech">
+        四季彩 <span>AI</span> コンシェルジュ
+      </h2>
 
-      <h1>Suggest Page</h1>
+      <h1>おすすめページ</h1>
 
       {/* CATEGORY FILTER */}
       <div className="category-bar">
@@ -113,7 +112,7 @@ const SuggestPage = () => {
       {loading && (
         <div className="loading">
           <ClipLoader size={50} />
-          <p>Loading...</p>
+          <p>読み込み中...</p>
         </div>
       )}
 
@@ -122,14 +121,15 @@ const SuggestPage = () => {
 
       {/* CARDS */}
       {!loading && suggestions.length > 0 && (
-       <div
-       className={`cards-container ${
-       suggestions.length === 1 ? "one-card" : "three-cards"
-       }`}>
-      {suggestions.slice(0, 3).map((item) => (
-      <FoodCard key={item._id} food={item} />
-       ))}
-      </div>
+        <div
+          className={`cards-container ${
+            suggestions.length === 1 ? "one-card" : "three-cards"
+          }`}
+        >
+          {suggestions.slice(0, 3).map((item) => (
+            <FoodCard key={item._id} food={item} />
+          ))}
+        </div>
       )}
 
       {/* RANDOM BUTTON */}
@@ -139,13 +139,10 @@ const SuggestPage = () => {
         disabled={loading}
       >
         <FontAwesomeIcon icon={faRandom} />
-        Random Pick
+        ランダムで選ぶ
       </button>
     </div>
   );
 };
 
 export default SuggestPage;
-
-
-

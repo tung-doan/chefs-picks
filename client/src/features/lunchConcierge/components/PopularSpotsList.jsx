@@ -5,11 +5,8 @@ const PopularSpotsList = ({ restaurants, activeId, onSelect }) => (
   <section className="flex h-full flex-col gap-4">
     <div className="flex items-center justify-between">
       <h2 className="text-sm font-semibold tracking-[0.3em] text-[#9A7F6E]">
-        POPULAR SPOTS
+        人気スポット
       </h2>
-      <span className="text-xs uppercase tracking-[0.25em] text-[#E68A2E]">
-        View All
-      </span>
     </div>
     <div className="flex flex-col gap-4">
       {restaurants.map((restaurant) => (
@@ -44,7 +41,7 @@ const PopularSpotsList = ({ restaurants, activeId, onSelect }) => (
                   icon={faLocationDot}
                   className="text-[#E68A2E]"
                 />
-                Nearby
+                近く
               </span>
             </div>
           </div>

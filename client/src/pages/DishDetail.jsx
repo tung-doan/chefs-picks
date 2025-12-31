@@ -8,10 +8,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const fallbackImage =
   'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop';
 
-const formatPrice = (price) =>
-  new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(
-    price || 0
-  );
+// const formatPrice = (price) =>
+//   new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(
+//     price || 0
+//   );
 
 // Hàm quản lý giỏ hàng với localStorage
 const getCart = () => {
@@ -268,7 +268,7 @@ const DishDetail = () => {
             <p className="text-sm text-orange-500 font-semibold mb-2">料理詳細</p>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{dish.name}</h1>
             <div className="text-2xl md:text-3xl font-bold text-orange-600 mb-4">
-              {formatPrice(dish.price)}
+              {dish.price} đ
             </div>
 
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-700 mb-4">
@@ -333,7 +333,6 @@ const DishDetail = () => {
             </div>
           </div>
 
-          Nút thêm giỏ hàng và đặt hàng - Ở cuối
           <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200 mt-auto">
               {/* <button
                 onClick={handleAddToCart}
@@ -369,7 +368,7 @@ const DishDetail = () => {
                 disabled={!dish.isAvailable}
                 className={`flex-1 px-6 py-4 rounded-xl font-semibold text-white transition-all ${
                   dish.isAvailable
-                    ? 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg'
+                    ? 'bg-orange-500 hover:bg-orange-600 cursor-pointer hover:shadow-lg'
                     : 'bg-gray-400 cursor-not-allowed'
                 }`}
               >

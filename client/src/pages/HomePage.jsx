@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Loader2, AlertCircle } from "lucide-react";
 import Header from "../components/layout/header";
 import { API_BASE_URL } from "../config/api-config";
 import "../styles/style.css";
-
 
 const featureCards = [
   {
@@ -37,8 +35,12 @@ const HomePage = () => {
   const handleFeatureClick = (cardId) => {
     if (cardId === "map") {
       navigate("/map");
+    } else if (cardId === "surprise") {
+      navigate("/suggest");
+    } else if (cardId === "plan") {
+      navigate("/lunch-schedule");
     }
-  }
+  };
   const [highlightMeals, setHighlightMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,13 +51,13 @@ const HomePage = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         const response = await fetch(`${API_BASE_URL}/dishes/popular?limit=3`);
-        
+
         if (!response.ok) {
           throw new Error("人気料理の取得に失敗しました");
         }
-        
+
         const dishes = await response.json();
         setHighlightMeals(Array.isArray(dishes) ? dishes : []);
       } catch (err) {
@@ -89,13 +91,17 @@ const HomePage = () => {
               あなたの好み、天気、予算に合わせた提案で、より早く選べます。
             </p>
             <div className="hero-actions">
-              <Link to="/suggest"> 
-              <button className="primary-btn">おすすめを見る</button> </Link>
-              <button className="ghost-btn">サプライズ</button>
+              <Link to="/suggest">
+                <button className="primary-btn">おすすめを見る</button>{" "}
+              </Link>
             </div>
           </div>
           <div className="hero-preview">
-            <span>おすすめ料理のプレビューエリア / 画像</span>
+            <img
+              src="https://th.bing.com/th/id/OIP.wuylH8ugMZmDHFOatnwQ6gHaEJ?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+              alt="天ぷら"
+              className="w-full h-48 object-cover rounded-xl shadow"
+            />
           </div>
         </section>
 
@@ -120,7 +126,7 @@ const HomePage = () => {
 
         <section className="highlights">
           <h2>今日のハイライト</h2>
-          
+
           {loading ? (
             <div className="flex items-center justify-center py-8">
               <Loader2 className="animate-spin text-orange-500" size={32} />
@@ -139,7 +145,7 @@ const HomePage = () => {
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {highlightMeals.map((meal) => (
                 <li key={meal._id} className="highlight-item">
-                  <Link 
+                  <Link
                     to={`/menu/${meal._id}`}
                     className="flex flex-col h-full hover:bg-gray-50 p-4 rounded-lg transition-colors"
                   >
@@ -152,7 +158,9 @@ const HomePage = () => {
                       }}
                     />
                     <div className="flex-1">
-                      <p className="meal-name font-semibold text-gray-800 mb-2 line-clamp-2">{meal.name}</p>
+                      <p className="meal-name font-semibold text-gray-800 mb-2 line-clamp-2">
+                        {meal.name}
+                      </p>
                       <div className="flex items-center justify-between">
                         <span className="meal-price text-orange-600 font-bold">
                           {formatPrice(meal.price)}
@@ -164,9 +172,7 @@ const HomePage = () => {
                         )}
                       </div>
                     </div>
-                    <button 
-                      className="detail-btn mt-3 w-full text-center"
-                    >
+                    <button className="detail-btn mt-3 w-full text-center">
                       詳細
                     </button>
                   </Link>
