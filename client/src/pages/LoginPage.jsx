@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Loader2, AlertCircle } from "lucide-react";
 import "../styles/style.css";
 import { API_BASE_URL } from "../config/api-config";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -59,9 +60,21 @@ const LoginPage = () => {
         // Lưu token và user info vào localStorage
         localStorage.setItem("authToken", data.data.token);
         localStorage.setItem("user", JSON.stringify(data.data.user));
+        // Lưu userId (luôn là một chuỗi ID thuần) để các trang khác có thể kiểm tra
+        const extractId = (u) => {
+          if (!u) return null;
+          if (typeof u === 'string') return u;
+          if (typeof u === 'object') return u._id || u.id || null;
+          return null;
+        };
+        const uid = extractId(data.data.user);
+        if (uid) localStorage.setItem("userId", String(uid));
+        console.log("Logged in user:", data.data.user);
 
-        // Redirect về homepage
-        navigate("/");
+        // Redirect về trang chuyển hướng nếu có ?redirect=..., ngược lại về homepage
+        const params = new URLSearchParams(location.search);
+        const redirectTo = params.get('redirect') || '/';
+        navigate(redirectTo);
       } else {
         setError("予期しないエラーが発生しました");
       }

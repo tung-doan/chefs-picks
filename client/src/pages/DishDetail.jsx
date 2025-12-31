@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ArrowLeft, AlertCircle, Loader2, Star, MapPin, Utensils, ShoppingCart, Check, User } from 'lucide-react';
 import Header from '../components/layout/header';
 
@@ -88,7 +88,9 @@ const sampleDetailedDescription = {
 };
 
 const DishDetail = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const location = useLocation();
+  const id = location.state?.id || params.id;
   const navigate = useNavigate();
   const [dish, setDish] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -139,9 +141,25 @@ const DishDetail = () => {
   if (!dish) return;
 
   // 1. Kiểm tra userId
-  const userId = localStorage.getItem('userId');
+  // Try to resolve userId from multiple possible localStorage keys
+  let userId = localStorage.getItem('userId');
   if (!userId) {
-    alert("ログインしてください (Vui lòng đăng nhập)");
+    const userRaw = localStorage.getItem('user');
+    if (userRaw) {
+      try {
+        const userObj = JSON.parse(userRaw);
+        userId = userObj._id || userObj.id || userObj.userId || null;
+      } catch (e) {
+        // fallback: if stored as plain string
+        userId = userRaw;
+      }
+    }
+  }
+
+    if (!userId) {
+    // Chuyển hướng tới login và trả lại trang hiện tại khi đăng nhập xong
+    // Use actual dish id (dish._id) when available so redirect works even when URL shows slug
+    navigate(`/login?redirect=/menu/${dish?._id || id}`);
     return;
   }
 
@@ -172,12 +190,19 @@ const DishDetail = () => {
       body: JSON.stringify(orderData)
     });
 
-    const result = await response.json();
+    let result = null;
+    try {
+      result = await response.json();
+    } catch (e) {
+      // ignore JSON parse errors
+    }
+
     if (response.ok) {
       alert("注文が完了し、履歴に保存されました！");
       navigate('/history');
     } else {
-      alert("Server error: " + result.message);
+      console.error('Order failed response:', response.status, result);
+      alert("Server error: " + (result?.message || response.statusText || 'Unknown error'));
     }
   } catch (error) {
     console.error("Lỗi kết nối:", error);
@@ -308,9 +333,9 @@ const DishDetail = () => {
             </div>
           </div>
 
-          {/* Nút thêm giỏ hàng và đặt hàng - Ở cuối */}
+          Nút thêm giỏ hàng và đặt hàng - Ở cuối
           <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200 mt-auto">
-              <button
+              {/* <button
                 onClick={handleAddToCart}
                 disabled={!dish.isAvailable}
                 className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-white transition-all ${
@@ -338,7 +363,7 @@ const DishDetail = () => {
                   </>
                 )}
               </button>
-              
+               */}
               <button
                 onClick={handleOrder}
                 disabled={!dish.isAvailable}
