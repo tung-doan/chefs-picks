@@ -1,146 +1,94 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
-import "../styles/SuggestPage.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRandom } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import "../styles/FoodCard.css";
-import FoodCard from "../components/common/FoodCard";
-import { API_BASE_URL } from '../config/api-config';
+import Header from "../components/layout/Header";
+import "../styles/style.css";
+import { Link } from "react-router-dom";
 
+const featureCards = [
+  {
+    id: "surprise",
+    icon: "🎉",
+    title: "サプライズ",
+    description: "何を食べるか迷っていますか？AIがおすすめの一品を選びます。",
+    cta: "試してみる",
+  },
+  {
+    id: "map",
+    icon: "📍",
+    title: "近くのランチマップ",
+    description: "今すぐ歩いて行けるレストランを確認できます。",
+    cta: "マップを開く",
+  },
+  {
+    id: "plan",
+    icon: "🗓️",
+    title: "週間ランチプラン",
+    description: "平日のバランスの取れたプランを自動で作成します。",
+    cta: "プランを見る",
+  },
+];
 
-const API_SUGGEST = `${API_BASE_URL}/omakase`;
-const API_CATEGORIES = `${API_BASE_URL}/categories`;
+const highlightMeals = [
+  { id: 1, icon: "🍛", name: "Butter Chicken Curry", price: "¥780" },
+  { id: 2, icon: "🍜", name: "Shoyu Ramen", price: "¥750" },
+  { id: 3, icon: "🥗", name: "Chicken Salad", price: "¥680" },
+];
 
-const SuggestPage = () => {
-  const navigate = useNavigate();
+const HomePage = () => {
 
-  const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
-  const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  /* ================== FETCH CATEGORIES ================== */
-  const fetchCategories = async () => {
-    try {
-      const res = await axios.get(API_CATEGORIES);
-      setCategories(res.data);
-    } catch (err) {
-      console.error("❌ Fetch categories error", err);
-    }
-  };
-
-  /* ================== TOGGLE CATEGORY ================== */
-  const toggleCategory = (categoryId) => {
-    setSelectedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
-    );
-  };
-
-  /* ================== FETCH SUGGESTIONS ================== */
-  const fetchSuggestions = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const token = localStorage.getItem("authToken");
-
-      const res = await axios.post(
-        API_SUGGEST,
-        {
-          categories: selectedCategories, // ✅ array of categoryId
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSuggestions(res.data);
-    } catch (err) {
-      console.error(err);
-      setError("おすすめメニューを取得できませんでした");
-      setSuggestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* ================== EFFECTS ================== */
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    fetchSuggestions();
-  }, [selectedCategories]);
-
-  /* ================== RENDER ================== */
   return (
-    <div className="suggest-page">
-      <button className="btn-home" onClick={() => navigate("/")}>
-        🏠 ホームへ戻る
-      </button>
+    <div className="home-page">
+      <Header />
 
-     <h2 className="title-tech">
-     Shikiai <span>AI</span> コンシェルジュ </h2>
+      <main className="home-content">
+        <section className="hero-section">
+          <div className="hero-text">
+            <p className="hero-label">今日のおすすめランチ</p>
+            <p className="hero-subtitle">
+              あなたの好み、天気、予算に合わせた提案で、より早く選べます。
+            </p>
+            <div className="hero-actions">
+              <Link to="/suggest"> 
+              <button className="primary-btn">おすすめを見る</button> </Link>
+              <button className="ghost-btn">サプライズ</button>
+            </div>
+          </div>
+          <div className="hero-preview">
+            <span>おすすめ料理のプレビューエリア / 画像</span>
+          </div>
+        </section>
 
-      {/* CATEGORY FILTER */}
-      <div className="category-bar">
-        {categories.map((cat) => (
-          <button
-            key={cat._id}
-            className={`category-btn ${
-              selectedCategories.includes(cat._id) ? "active" : ""
-            }`}
-            onClick={() => toggleCategory(cat._id)}
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
+        <section className="feature-section">
+          {featureCards.map((card) => (
+            <article key={card.id} className="feature-card">
+              <div className="icon-badge">{card.icon}</div>
+              <div>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+                <button className="ghost-btn small">{card.cta}</button>
+              </div>
+            </article>
+          ))}
+        </section>
 
-      {/* LOADING */}
-      {loading && (
-        <div className="loading">
-          <ClipLoader size={50} />
-          <p>読み込み中...</p>
-        </div>
-      )}
-
-      {/* ERROR */}
-      {error && !loading && <p className="error">{error}</p>}
-
-      {/* CARDS */}
-      {!loading && suggestions.length > 0 && (
-       <div
-       className={`cards-container ${
-       suggestions.length === 1 ? "one-card" : "three-cards"
-       }`}>
-      {suggestions.slice(0, 3).map((item) => (
-      <FoodCard key={item._id} food={item} />
-       ))}
-      </div>
-      )}
-
-      {/* RANDOM BUTTON */}
-      <button
-        className="btn-refresh"
-        onClick={() => setSelectedCategories([])}
-        disabled={loading}
-      >
-        <FontAwesomeIcon icon={faRandom} />
-        ランダム選択
-      </button>
+        <section className="highlights">
+          <h2>今日のハイライト</h2>
+          <ul>
+            {highlightMeals.map((meal) => (
+              <li key={meal.id} className="highlight-item">
+                <div className="highlight-info">
+                  <span className="icon-circle">{meal.icon}</span>
+                  <div>
+                    <p className="meal-name">{meal.name}</p>
+                    <span className="meal-price">{meal.price}</span>
+                  </div>
+                </div>
+                <button className="detail-btn">詳細</button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
     </div>
   );
 };
 
-export default SuggestPage;
-
+export default HomePage;
